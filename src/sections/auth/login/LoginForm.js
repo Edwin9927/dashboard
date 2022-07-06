@@ -26,14 +26,14 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().email('Debe ser una dirección de correo electrónico válida').required('Es requerido'),
+    password: Yup.string().required('Es requerido'),
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
-    remember: true,
+    email: '',
+    password: '',
+    remember: false,
   };
 
   const methods = useForm({
@@ -50,9 +50,15 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      let result = await login(data.email, data.password);
+      if(result.ok){
+        console.log("rsul",result);
+      }
+      
     } catch (error) {
-      console.error(error);
+      
+      //error.message.se = "Algo";
+      console.error("Error: ",error);
       reset();
       if (isMountedRef.current) {
         setError('afterSubmit', error);
@@ -63,13 +69,14 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!!errors.afterSubmit && 
+        <Alert severity="error">Usuario o Contraseña invalidos</Alert>}
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Correo" />
 
         <RHFTextField
           name="password"
-          label="Password"
+          label="Contraseña"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (

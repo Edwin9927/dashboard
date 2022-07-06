@@ -37,7 +37,7 @@ export default function AppWelcome({ displayName }) {
         }}
       >
         <Typography gutterBottom variant="h4">
-          Welcome back,
+          Hola Welcome back,
           <br /> {!displayName ? '...' : displayName}!
         </Typography>
 

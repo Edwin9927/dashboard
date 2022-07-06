@@ -108,11 +108,15 @@ function AuthProvider({ children }) {
     initialize();
   }, []);
 
-  const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', {
-      email,
-      password,
-    });
+  const login = async (usernameorEmail, password) => {
+    console.log("data = ",usernameorEmail, password);
+
+    const url = "http://localhost:8080/api/auth";
+    
+    let logindata = { "usernameorEmail": usernameorEmail, "password": password };
+
+    const response = await axios.post(url+"/authenticate", logindata);
+    
     const { accessToken, user } = response.data;
 
     setSession(accessToken);
