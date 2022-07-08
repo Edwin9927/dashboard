@@ -119,6 +119,24 @@ function AuthProvider({ children }) {
     
     const { accessToken, user } = response.data;
 
+    const id = response.data.id;
+
+    console.log("id", id);
+
+     /*const userData = {'user':{
+      "id": userdata.data.idUsuario,
+      "displayName": userdata.data.apellido + " " + userdata.data.nombre,
+      "email:": userdata.data.email,
+      "role": userdata.data.rol,
+      "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_default.jpg"
+    }}*/
+
+    const userdata = await axios.get("http://localhost:8080/api/usuarios/"+id);
+    console.log(userdata.data);
+
+    
+
+
     setSession(accessToken);
     dispatch({
       type: 'LOGIN',

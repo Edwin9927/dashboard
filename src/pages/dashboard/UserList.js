@@ -1,3 +1,4 @@
+import axios from '../../utils/axios';
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import {
   Card,
   Table,
-  Avatar,
   Button,
   Checkbox,
   TableRow,
@@ -21,7 +21,7 @@ import {
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
-// _mock_
+// _mock_ 
 import { _userList } from '../../_mock';
 // components
 import Page from '../../components/Page';
@@ -36,21 +36,33 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../../sections/@das
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  { id: 'nombre', label: 'Nombre', alignRight: false },
+  { id: 'apellido', label: 'Apellido', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
+  { id: 'cedula', label: 'Cedula', alignRight: false },
+  { id: 'role', label: 'Rol', alignRight: false },
   { id: '' },
 ];
 
 // ----------------------------------------------------------------------
+  const urlUsuarios = "http://localhost:8080/api/usuarios";
 
+  let userdata;
+
+  fetch(urlUsuarios)
+      .then(response => response.json())
+      .then(json => userdata = json)
+      .then(() => console.log(userdata))
+  
+  // ----------------------------------------------------------------------
 export default function UserList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
 
-  const [userList, setUserList] = useState(_userList);
+  console.log("_userList 1: ", _userList);
+
+
+  const [userList, setUserList] = useState(userdata);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -99,13 +111,13 @@ export default function UserList() {
   };
 
   const handleDeleteUser = (userId) => {
-    const deleteUser = userList.filter((user) => user.id !== userId);
+    const deleteUser = userdata.filter((user) => user.id !== userId);
     setSelected([]);
     setUserList(deleteUser);
   };
 
   const handleDeleteMultiUser = (selected) => {
-    const deleteUsers = userList.filter((user) => !selected.includes(user.name));
+    const deleteUsers = userdata.filter((user) => !selected.includes(user.name));
     setSelected([]);
     setUserList(deleteUsers);
   };
@@ -120,11 +132,11 @@ export default function UserList() {
     <Page title="User: List">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="User List"
+          heading="Listado de Usuarios"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'List' },
+            { name: 'Usuario', href: PATH_DASHBOARD.user.root },
+            { name: 'Listado' },
           ]}
           action={
             <Button
@@ -133,7 +145,7 @@ export default function UserList() {
               to={PATH_DASHBOARD.user.newUser}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
-              New User
+              Nuevo Usuario
             </Button>
           }
         />
@@ -160,41 +172,31 @@ export default function UserList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                    const { id, nombre, apellido, email, cedula, rol,  } = row;
+                    const isItemSelected = selected.indexOf(nombre) !== -1;
 
                     return (
                       <TableRow
                         hover
                         key={id}
                         tabIndex={-1}
-                        role="checkbox"
+                        rol="checkbox"
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
+                          <Checkbox checked={isItemSelected} onClick={() => handleClick(nombre)} />
                         </TableCell>
-                        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} />
-                          <Typography variant="subtitle2" noWrap>
-                            {name}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="left">{company}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                        <TableCell align="left">
-                          <Label
-                            variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-                            color={(status === 'banned' && 'error') || 'success'}
-                          >
-                            {sentenceCase(status)}
-                          </Label>
-                        </TableCell>
+                        
+                        <TableCell align="left">{nombre}</TableCell>
+                        <TableCell align="left">{apellido}</TableCell>
+                        <TableCell align="left">{email}</TableCell>
+                        <TableCell align="left">{cedula}</TableCell>
+                        <TableCell align="left">{rol}</TableCell>
+                       
 
                         <TableCell align="right">
-                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={name} />
+                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={nombre} />
                         </TableCell>
                       </TableRow>
                     );
