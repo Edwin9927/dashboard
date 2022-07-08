@@ -7,6 +7,7 @@ export * from './_others';
 export * from './_user';
 export * from './_analytics';
 export * from './_countries';
+export * from './_alimentoList';
 /*export * from './_plans';
 
 export * from './_others';
