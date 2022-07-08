@@ -1,7 +1,8 @@
 import axios from '../../utils/axios';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import getUsuario from '../../services/getUsuarios';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -21,9 +22,7 @@ import {
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
-// _mock_ 
-import { _userList } from '../../_mock';
-// components
+// _mock_  import { _userList } from '../../_mock';// components
 import Page from '../../components/Page';
 import Label from '../../components/Label';
 import Iconify from '../../components/Iconify';
@@ -45,24 +44,41 @@ const TABLE_HEAD = [
 ];
 
 // ----------------------------------------------------------------------
-  const urlUsuarios = "http://localhost:8080/api/usuarios";
+const urlUsuarios = "http://localhost:8080/api/usuarios";
 
-  let userdata;
+/*let userdata;
 
-  fetch(urlUsuarios)
-      .then(response => response.json())
-      .then(json => userdata = json)
-      .then(() => console.log(userdata))
-  
-  // ----------------------------------------------------------------------
+fetch(urlUsuarios)
+  .then(response => response.json())
+  .then(json => userdata = json)
+  .then(() => console.log(userdata))
+
+/*const [usuario, setUsuario] = React.useState({});
+
+React.useEffect(() => {
+    getUsuario()
+        .then(res => setUsuario(res));
+});
+
+console.log(usuario);
+
+
+*/
+// ----------------------------------------------------------------------
 export default function UserList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
 
-  console.log("_userList 1: ", _userList);
+  //console.log("_userList 1: ", _userList);
 
 
-  const [userList, setUserList] = useState(userdata);
+  const [userList, setUserList] = useState([]);
+  useEffect(() => {
+    getUsuario()
+      .then(res => setUserList(res));
+  },[]);
+
+  console.log(userList);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -111,13 +127,13 @@ export default function UserList() {
   };
 
   const handleDeleteUser = (userId) => {
-    const deleteUser = userdata.filter((user) => user.id !== userId);
+    const deleteUser = userList.filter((user) => user.id !== userId);
     setSelected([]);
     setUserList(deleteUser);
   };
 
   const handleDeleteMultiUser = (selected) => {
-    const deleteUsers = userdata.filter((user) => !selected.includes(user.name));
+    const deleteUsers = userList.filter((user) => !selected.includes(user.name));
     setSelected([]);
     setUserList(deleteUsers);
   };
@@ -172,7 +188,7 @@ export default function UserList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, nombre, apellido, email, cedula, rol,  } = row;
+                    const { id, nombre, apellido, email, cedula, rol, } = row;
                     const isItemSelected = selected.indexOf(nombre) !== -1;
 
                     return (
@@ -187,13 +203,13 @@ export default function UserList() {
                         <TableCell padding="checkbox">
                           <Checkbox checked={isItemSelected} onClick={() => handleClick(nombre)} />
                         </TableCell>
-                        
+
                         <TableCell align="left">{nombre}</TableCell>
                         <TableCell align="left">{apellido}</TableCell>
                         <TableCell align="left">{email}</TableCell>
                         <TableCell align="left">{cedula}</TableCell>
                         <TableCell align="left">{rol}</TableCell>
-                       
+
 
                         <TableCell align="right">
                           <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={nombre} />
