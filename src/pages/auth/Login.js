@@ -118,14 +118,6 @@ export default function Login() {
 
             <LoginForm />
 
-            {!smUp && (
-              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                ¿No tienes una cuenta?{' '}
-                <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                  Get started
-                </Link>
-              </Typography>
-            )}
           </ContentStyle>
         </Container>
       </RootStyle>

@@ -22,12 +22,12 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
   const isMountedRef = useIsMountedRef();
 
   const ResetPasswordSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    email: Yup.string().email('Debe ser un correo válido').required('Es requerido'),
   });
 
   const methods = useForm({
     resolver: yupResolver(ResetPasswordSchema),
-    defaultValues: { email: 'demo@minimals.cc' },
+    defaultValues: { email: '' },
   });
 
   const {
@@ -50,10 +50,10 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Dirección de correo electrónico" />
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-          Reset Password
+          Recuperar contraseña
         </LoadingButton>
       </Stack>
     </FormProvider>

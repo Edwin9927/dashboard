@@ -30,21 +30,19 @@ const navConfig = [
     subheader: 'general',
     items: [
       { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
-      { title: 'e-commerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
-      { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
-      { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      { title: 'Estadisticas', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
+      { title: 'Reservas', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
     ],
   },
 
   // MANAGEMENT
   // ----------------------------------------------------------------------
   {
-    subheader: 'management',
+    subheader: 'Adminsitración',
     items: [
       // MANAGEMENT : USER
       {
-        title: 'user',
+        title: 'Usuarios',
         path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
         children: [
@@ -59,8 +57,9 @@ const navConfig = [
 
       // ALIMENTOS
       {
-        title: 'alimento',
+        title: 'Alimentos',
         path: PATH_DASHBOARD.alimento.root,
+        icon: ICONS.user,
         children: [
           { title: 'list', path: PATH_DASHBOARD.alimento.list },
           { title: 'create', path: PATH_DASHBOARD.alimento.newAlimento },
@@ -73,7 +72,7 @@ const navConfig = [
   // APP
   // ----------------------------------------------------------------------
   {
-    subheader: 'app',
+    subheader: 'Calificaciones',
     items: [
       {
         title: 'mail',
