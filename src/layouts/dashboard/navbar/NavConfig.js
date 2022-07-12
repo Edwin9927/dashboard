@@ -57,33 +57,16 @@ const navConfig = [
         ],
       },
 
-      // MANAGEMENT : E-COMMERCE
+      // ALIMENTOS
       {
-        title: 'e-commerce',
-        path: PATH_DASHBOARD.eCommerce.root,
-        icon: ICONS.cart,
+        title: 'alimento',
+        path: PATH_DASHBOARD.alimento.root,
         children: [
-          { title: 'shop', path: PATH_DASHBOARD.eCommerce.shop },
-          { title: 'product', path: PATH_DASHBOARD.eCommerce.productById },
-          { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
-          { title: 'create', path: PATH_DASHBOARD.eCommerce.newProduct },
-          { title: 'edit', path: PATH_DASHBOARD.eCommerce.editById },
-          { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout },
-          { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice },
+          { title: 'list', path: PATH_DASHBOARD.alimento.list },
+          { title: 'create', path: PATH_DASHBOARD.alimento.newAlimento },
         ],
       },
 
-      // MANAGEMENT : BLOG
-      {
-        title: 'blog',
-        path: PATH_DASHBOARD.blog.root,
-        icon: ICONS.blog,
-        children: [
-          { title: 'posts', path: PATH_DASHBOARD.blog.posts },
-          { title: 'post', path: PATH_DASHBOARD.blog.postById },
-          { title: 'new post', path: PATH_DASHBOARD.blog.newPost },
-        ],
-      },
     ],
   },
 

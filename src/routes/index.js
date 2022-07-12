@@ -78,6 +78,14 @@ export default function Router() {
             { path: 'account', element: <UserAccount /> },
           ],
         },
+        {
+          path: 'alimento',
+          children:[
+            {element: <Navigate to="/dashboard/alimento/list" replace />, index: true},
+            {path: 'list', element: <AlimentoList />},
+            {path: 'new', element: <AlimentoCreate />}
+          ],
+        }
       ],
     },
 
@@ -110,6 +118,9 @@ const UserCards = Loadable(lazy(() => import('../pages/dashboard/UserCards')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
+const AlimentoCreate = Loadable(lazy(() => import('../pages/dashboard/AlimentoCreate')));
+const AlimentoList = Loadable(lazy(() => import('../pages/dashboard/AlimentoList')));
+
 // Main
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
