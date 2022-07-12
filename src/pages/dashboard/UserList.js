@@ -68,16 +68,13 @@ console.log(usuario);
 export default function UserList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
-
-  //console.log("_userList 1: ", _userList);
-
-
+// ----------------------------------------------------------------------
   const [userList, setUserList] = useState([]);
   useEffect(() => {
     getUsuario()
       .then(res => setUserList(res));
   },[]);
-
+// ----------------------------------------------------------------------
   console.log(userList);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
