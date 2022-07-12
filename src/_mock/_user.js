@@ -78,11 +78,27 @@ export const _userFeeds = [...Array(3)].map((_, index) => ({
       },
       createdAt: _mock.time(3),
       message:
-        'Etiam rhoncus. Nullam vel sem. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Sed lectus.',
+          'Etiam rhoncus. Nullam vel sem. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Sed lectus.',
     },
   ],
 }));
 
+export const _userCards = [...Array(24)].map((_, index) => ({
+  id: _mock.id(index),
+  avatarUrl: _mock.image.avatar(index),
+  cover: _mock.image.cover(index),
+  name: _mock.name.fullName(index),
+  follower: randomNumberRange(999, 99999),
+  following: randomNumberRange(999, 99999),
+  totalPost: randomNumberRange(999, 99999),
+  position: _mock.role(index),
+}));
+
+export const _userPayment = [...Array(2)].map((_, index) => ({
+  id: _mock.id(index),
+  cardNumber: ['**** **** **** 1234', '**** **** **** 5678', '**** **** **** 7878'][index],
+  cardType: ['master_card', 'visa', 'master_card'][index],
+}));
 
 export const _userAddressBook = [...Array(4)].map((_, index) => ({
   id: _mock.id(index),
