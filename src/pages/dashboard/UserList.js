@@ -1,5 +1,3 @@
-import axios from '../../utils/axios';
-import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import getUsuario from '../../services/getUsuarios';
