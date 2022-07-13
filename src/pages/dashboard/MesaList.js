@@ -37,6 +37,7 @@ const TABLE_HEAD = [
     { id: 'estado', label: 'Estado', alignRight: false },
     { id: 'tipo', label: 'Tipo', alignRight: false },
     { id: '' },
+    { id: '' },
 ];
 
 export default function MesaList() {

@@ -68,6 +68,7 @@ const navConfig = [
       {
         title: 'mesa',
         path: PATH_DASHBOARD.mesa.root,
+        icon: ICONS.user,
         children: [
           { title: 'lista', path: PATH_DASHBOARD.mesa.list },
           { title: 'crear', path: PATH_DASHBOARD.mesa.newMesa },

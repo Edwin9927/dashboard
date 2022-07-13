@@ -42,6 +42,7 @@ const TABLE_HEAD = [
   { id: 'precio', label: 'Precio', alignRight: false },
   { id: 'tipo', label: 'Tipo', alignRight: false },
   { id: '' },
+  { id: '' },
 ];
 
 // ----------------------------------------------------------------------
