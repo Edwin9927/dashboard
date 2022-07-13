@@ -66,6 +66,16 @@ const navConfig = [
         ],
       },
 
+      // Pididos
+      {
+        title: 'Pedidos',
+        path: PATH_DASHBOARD.pedido.root,
+        icon: ICONS.user,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.pedido.list },
+          { title: 'create', path: PATH_DASHBOARD.pedido.newPedido },
+        ],
+      },
     ],
   },
 

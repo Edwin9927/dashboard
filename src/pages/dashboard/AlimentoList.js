@@ -136,7 +136,7 @@ export default function AlimentoList() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Alimento', href: PATH_DASHBOARD.alimento.root },
-            { name: 'List' },
+            { name: 'Listado' },
           ]}
           action={
             <Button
@@ -145,7 +145,7 @@ export default function AlimentoList() {
               to={PATH_DASHBOARD.alimento.newAlimento}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
-              New Alimento
+              Nuevo Alimento
             </Button>
           }
         />
