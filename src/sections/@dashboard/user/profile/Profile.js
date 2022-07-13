@@ -18,7 +18,7 @@ Profile.propTypes = {
 export default function Profile({ myProfile}) {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12}>
         <Stack spacing={3}>
           <ProfileAbout profile={myProfile} />
         </Stack>
