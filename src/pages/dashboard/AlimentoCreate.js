@@ -39,7 +39,7 @@ export default function AlimentoCreate() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Alimento', href: PATH_DASHBOARD.alimento.list },
-            { name: !isEdit ? 'New alimento' : capitalCase(name) },
+            { name: !isEdit ? 'Nuevo alimento' : capitalCase(name) },
           ]}
         />
 

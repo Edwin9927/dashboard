@@ -130,7 +130,7 @@ export default function AlimentoList() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Alimento', href: PATH_DASHBOARD.alimento.root },
-            { name: 'List' },
+            { name: 'Lista' },
           ]}
           action={
             <Button

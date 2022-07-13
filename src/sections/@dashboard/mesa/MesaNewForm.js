@@ -91,7 +91,7 @@ export default function MesaNewForm({ isEdit, currentMesa }) {
       >
 
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={12}>
           <Card sx={{ p: 3 }}>
             <Box
               sx={{
@@ -102,7 +102,7 @@ export default function MesaNewForm({ isEdit, currentMesa }) {
               }}
             >
               <RHFTextField name="nombre" label="Nombre" />
-              <RHFSelect name="capacidad" label="Mesa" placeholder="capacidad de la mesa">
+              <RHFSelect name="capacidad" label="Capacidad">
                 <option label='' />
                 <option value="1" label='1' />
                 <option value="2" label='2' />
@@ -115,7 +115,7 @@ export default function MesaNewForm({ isEdit, currentMesa }) {
                 <option value="9" label='9' />
                 <option value="10" label='10' />
               </RHFSelect>
-              <RHFSelect name="estado" label="Estado" placeholder="Estado de la mesa">
+              <RHFSelect name="estado" label="Estado">
                 <option label='' />
                 <option value = "0" label = "No disponible"/>
                 <option value = "1" label = "Disponible"/>

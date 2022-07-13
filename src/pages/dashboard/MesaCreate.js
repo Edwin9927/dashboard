@@ -30,7 +30,7 @@ export default function MesaCreate() {
               links={[
                 { name: 'Dashboard', href: PATH_DASHBOARD.root },
                 { name: 'Mesa', href: PATH_DASHBOARD.mesa.list },
-                { name: !isEdit ? 'New mesa' : capitalCase(name) },
+                { name: !isEdit ? 'Nueva mesa' : capitalCase(name) },
               ]}
             />
     

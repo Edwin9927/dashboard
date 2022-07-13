@@ -120,7 +120,7 @@ export default function MesaList() {
                     links={[
                         { name: 'Dashboard', href: PATH_DASHBOARD.root },
                         { name: 'Mesa', href: PATH_DASHBOARD.mesa.root },
-                        { name: 'List' },
+                        { name: 'Lista' },
                     ]}
                     action={
                         <Button

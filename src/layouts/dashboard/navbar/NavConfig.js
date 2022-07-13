@@ -62,16 +62,16 @@ const navConfig = [
         title: 'alimento',
         path: PATH_DASHBOARD.alimento.root,
         children: [
-          { title: 'list', path: PATH_DASHBOARD.alimento.list },
-          { title: 'create', path: PATH_DASHBOARD.alimento.newAlimento },
+          { title: 'lista', path: PATH_DASHBOARD.alimento.list },
+          { title: 'crear', path: PATH_DASHBOARD.alimento.newAlimento },
         ],
       },
       {
         title: 'mesa',
         path: PATH_DASHBOARD.mesa.root,
         children: [
-          { title: 'list', path: PATH_DASHBOARD.mesa.list },
-          { title: 'create', path: PATH_DASHBOARD.mesa.newMesa },
+          { title: 'lista', path: PATH_DASHBOARD.mesa.list },
+          { title: 'crear', path: PATH_DASHBOARD.mesa.newMesa },
         ],
       },
 

@@ -153,8 +153,8 @@ export default function AlimentosForm({ isEdit, currentAlimento }) {
                     color: "text.secondary",
                   }}
                 >
-                  Allowed *.jpeg, *.jpg, *.png, *.gif
-                  <br /> max size of {fData(3145728)}
+                  Permitido *.jpeg, *.jpg, *.png, *.gif
+                  <br /> Tamaño máximo de {fData(3145728)}
                 </Typography>
               }
             />
