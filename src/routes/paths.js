@@ -39,7 +39,7 @@ export const PATH_DASHBOARD = {
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),
     analytics: path(ROOTS_DASHBOARD, '/analytics'),
     banking: path(ROOTS_DASHBOARD, '/banking'),
-    booking: path(ROOTS_DASHBOARD, '/booking')
+    reserva: path(ROOTS_DASHBOARD, '/reserva/list')
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),
@@ -75,6 +75,10 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/pedido'),
     list: path(ROOTS_DASHBOARD, '/pedido/list'),
     newPedido: path(ROOTS_DASHBOARD, '/pedido/new'),
+  },
+  reserva:{
+    root: path(ROOTS_DASHBOARD, '/reserva/list'),
+    list: path(ROOTS_DASHBOARD, '/reserva/list'),
   },
   eCommerce: {
     root: path(ROOTS_DASHBOARD, '/e-commerce'),
