@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import getAlimento from '../../services/getAlimento';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -45,17 +46,17 @@ const TABLE_HEAD = [
 // ----------------------------------------------------------------------
 
 const urlAlimento = "http://localhost:8080/api/alimentos";
-let _alimentoList;
-fetch(urlAlimento)
-  .then(response => response.json())
-  .then(json => _alimentoList = json)
-  .then(()=> console.log(_alimentoList))
+
 
 // ----------------------------------------------------------------------
 export default function AlimentoList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
-  const [AlimentoList, setAlimentoList] = useState(_alimentoList);
+  const [AlimentoList, setAlimentoList] = useState([]);
+  useEffect(() => {
+    getAlimento()
+      .then(res => setAlimentoList(res));
+  },[]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -125,7 +126,7 @@ export default function AlimentoList() {
     <Page title="Alimento: List">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Alimento List"
+          heading="Lista de Alimentos"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Alimento', href: PATH_DASHBOARD.alimento.root },

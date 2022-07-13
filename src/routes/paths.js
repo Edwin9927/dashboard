@@ -66,6 +66,11 @@ export const PATH_DASHBOARD = {
     list: path(ROOTS_DASHBOARD, '/alimento/list'),
     newAlimento: path(ROOTS_DASHBOARD, '/alimento/new'),
   },
+  mesa:{
+    root: path(ROOTS_DASHBOARD, '/mesa'),
+    list: path(ROOTS_DASHBOARD, '/mesa/list'),
+    newMesa: path(ROOTS_DASHBOARD, '/mesa/new'),
+  },
   eCommerce: {
     root: path(ROOTS_DASHBOARD, '/e-commerce'),
     shop: path(ROOTS_DASHBOARD, '/e-commerce/shop'),

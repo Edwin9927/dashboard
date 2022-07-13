@@ -79,6 +79,14 @@ export default function Router() {
           ],
         },
         {
+          path: 'mesa',
+          children:[
+            {element: <Navigate to="/dashboard/mesa/list" replace />, index: true},
+            {path: 'list', element: <MesaList />},
+            {path: 'new', element: <MesaCreate />}
+          ],
+        },
+        {
           path: 'alimento',
           children:[
             {element: <Navigate to="/dashboard/alimento/list" replace />, index: true},
@@ -120,6 +128,8 @@ const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 const AlimentoCreate = Loadable(lazy(() => import('../pages/dashboard/AlimentoCreate')));
 const AlimentoList = Loadable(lazy(() => import('../pages/dashboard/AlimentoList')));
+const MesaCreate = Loadable(lazy(() => import('../pages/dashboard/MesaCreate')));
+const MesaList = Loadable(lazy(() => import('../pages/dashboard/MesaList')));
 
 // Main
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));

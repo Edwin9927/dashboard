@@ -35,7 +35,7 @@ export default function AlimentoCreate() {
     <Page title="Alimento: Crear alimento">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading={!isEdit ? 'Create a new alimento' : 'Edit alimento'}
+          heading={!isEdit ? 'Ingresar Alimento' : 'Editar alimento'}
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Alimento', href: PATH_DASHBOARD.alimento.list },
