@@ -43,7 +43,7 @@ export default function AlimentoCreate() {
           ]}
         />
 
-        <AlimentosForm isEdit={isEdit}/>
+        <AlimentosForm isEdit={isEdit} />
       </Container>
     </Page>
   );

@@ -11,13 +11,7 @@ const getIcon = (name) => <SvgIconStyle src={`/icons/${name}.svg`} sx={{ width: 
 const ICONS = {
   blog: getIcon('ic_blog'),
   cart: getIcon('ic_cart'),
-  chat: getIcon('ic_chat'),
-  mail: getIcon('ic_mail'),
   user: getIcon('ic_user'),
-  kanban: getIcon('ic_kanban'),
-  banking: getIcon('ic_banking'),
-  calendar: getIcon('ic_calendar'),
-  ecommerce: getIcon('ic_ecommerce'),
   analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
   booking: getIcon('ic_booking'),
@@ -102,13 +96,6 @@ const navConfig = [
             +32
           </Label>
         ),
-      },
-      { title: 'chat', path: PATH_DASHBOARD.chat.root, icon: ICONS.chat },
-      { title: 'calendar', path: PATH_DASHBOARD.calendar, icon: ICONS.calendar },
-      {
-        title: 'kanban',
-        path: PATH_DASHBOARD.kanban,
-        icon: ICONS.kanban,
       },
     ],
   },

@@ -17,7 +17,7 @@ AlimentosMenu.propTypes = {
   nombre: PropTypes.string,
 };
 
-export default function AlimentosMenu({ onDelete, nombre }) {
+export default function AlimentosMenu({ onDelete, alimento }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -33,7 +33,7 @@ export default function AlimentosMenu({ onDelete, nombre }) {
     width: 20,
     height: 20,
   };
-  console.log("nombre", nombre);
+  console.log("alimento", alimento);
   return (
     <>
       <IconButton onClick={handleOpen}>
@@ -55,12 +55,19 @@ export default function AlimentosMenu({ onDelete, nombre }) {
       >
         <MenuItem onClick={onDelete} sx={{ color: 'error.main' }}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
-          Delete
+          Eliminar
         </MenuItem>
 
-        <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.alimento.root}/${paramCase(nombre)}/edit`}>
+        <MenuItem component={RouterLink} 
+          to={
+              `${PATH_DASHBOARD.alimento.root}/${paramCase(alimento.nombre)}/edit`
+            }
+          state={{
+              isEdit: true, 
+              currentAlimento: alimento
+            }}>
           <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
-          Edit
+          Editar
         </MenuItem>
       </MenuPopover>
     </>

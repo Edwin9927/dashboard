@@ -53,10 +53,13 @@ export default function AlimentoList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
   const [AlimentoList, setAlimentoList] = useState([]);
+
+
   useEffect(() => {
     getAlimento()
       .then(res => setAlimentoList(res));
   },[]);
+
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -195,7 +198,7 @@ export default function AlimentoList() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <AlimentosMenu onDelete={() => handleDeleteAlimento(id)} nombre={nombre} />
+                          <AlimentosMenu onDelete={() => handleDeleteAlimento(id)} alimento={row} />
                         </TableCell>
                       </TableRow>
                     );

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { useCallback, useEffect, useMemo } from "react";
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // form
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -34,11 +34,16 @@ AlimentosForm.propTypes = {
   currentAlimento: PropTypes.object,
 };
 
-export default function AlimentosForm({ isEdit, currentAlimento }) {
+export default function AlimentosForm() {
   const navigate = useNavigate();
+  const data = useLocation();
+
+  const isEdit = data.state.isEdit;
+  const currentAlimento = data.state.currentAlimento;
 
   const { enqueueSnackbar } = useSnackbar();
 
+  //constante para validar el esquema
   const NewAlimentoSchema = Yup.object().shape({
     menu: Yup.string().required("Menú es requerido"),
     imagen: Yup.mixed().test(
@@ -48,10 +53,11 @@ export default function AlimentosForm({ isEdit, currentAlimento }) {
     ),
     nombre: Yup.string().required("Nombre es requerido"),
     descripcion: Yup.string().required("Descripcion es requerida"),
-    precio: Yup.string().required("Precio es requerido"),
+    precio: Yup.number().required("Precio es requerido"),
     disponibilidad: Yup.string().required("Disponibilidad es requerida"),
   });
 
+  //constante para inicializar los valores por defecto
   const defaultValues = useMemo(
     () => ({
       menu: currentAlimento?.menu || "",
@@ -94,7 +100,8 @@ export default function AlimentosForm({ isEdit, currentAlimento }) {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? "Create success!" : "Update success!");
+      //CREAR LA OPERACION DE INGRESO
+      enqueueSnackbar(!isEdit ? "Alimento creado satisfactoriamente!" : "Actualización exitosa!");
       navigate(PATH_DASHBOARD.alimento.list);
     } catch (error) {
       console.error(error);

@@ -82,7 +82,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/alimento/list" replace />, index: true},
             {path: 'list', element: <AlimentoList />},
-            {path: 'new', element: <AlimentoCreate />}
+            {path: 'new', element: <AlimentoCreate />},
+            {path: ':name/edit', element: <AlimentoCreate />}
           ],
         },
         {
