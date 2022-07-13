@@ -29,20 +29,20 @@ export default function Page404() {
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <m.div variants={varBounce().in}>
               <Typography variant="h3" paragraph>
-                Sorry, page not found!
+                Lo sentimos, página no encontrada!
               </Typography>
             </m.div>
             <Typography sx={{ color: 'text.secondary' }}>
-              Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check
-              your spelling.
+              Lo sentimos, no pudimos encontrar la página que estás buscando. ¿Quizás has escrito mal la URL?
+              Asegúrese de escribir correctamente la dirección.
             </Typography>
 
             <m.div variants={varBounce().in}>
               <PageNotFoundIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
             </m.div>
 
-            <Button to="/" size="large" variant="contained" component={RouterLink}>
-              Go to Home
+            <Button to="/dashboard/" size="large" variant="contained" component={RouterLink}>
+              Regresar
             </Button>
           </Box>
         </Container>

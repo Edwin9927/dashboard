@@ -38,16 +38,7 @@ export default function Router() {
             </GuestGuard>
           ),
         },
-        {
-          path: 'register',
-          element: (
-            <GuestGuard>
-              <Register />
-            </GuestGuard>
-          ),
-        },
         { path: 'login-unprotected', element: <Login /> },
-        { path: 'register-unprotected', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'verify', element: <VerifyCode /> },
       ],
@@ -93,6 +84,14 @@ export default function Router() {
             {path: 'list', element: <AlimentoList />},
             {path: 'new', element: <AlimentoCreate />}
           ],
+        },
+        {
+          path: 'pedido',
+          children:[
+            {element: <Navigate to="/dashboard/pedido/list" replace />, index: true},
+            {path: 'list', element: <PedidoList />},
+            {path: 'new', element: <PedidoCreate />}
+          ],
         }
       ],
     },
@@ -115,7 +114,6 @@ export default function Router() {
 
 // Authentication
 const Login = Loadable(lazy(() => import('../pages/auth/Login')));
-const Register = Loadable(lazy(() => import('../pages/auth/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 // Dashboard
@@ -130,6 +128,9 @@ const AlimentoCreate = Loadable(lazy(() => import('../pages/dashboard/AlimentoCr
 const AlimentoList = Loadable(lazy(() => import('../pages/dashboard/AlimentoList')));
 const MesaCreate = Loadable(lazy(() => import('../pages/dashboard/MesaCreate')));
 const MesaList = Loadable(lazy(() => import('../pages/dashboard/MesaList')));
+const PedidoCreate = Loadable(lazy(() => import('../pages/dashboard/PedidoCreate')));
+const PedidoList = Loadable(lazy(() => import('../pages/dashboard/PedidoList')));
+
 
 // Main
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));

@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import getAlimento from '../../services/getAlimento';
+
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -47,8 +48,6 @@ const TABLE_HEAD = [
 
 const urlAlimento = "http://localhost:8080/api/alimentos";
 
-
-// ----------------------------------------------------------------------
 export default function AlimentoList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
@@ -139,7 +138,7 @@ export default function AlimentoList() {
               to={PATH_DASHBOARD.alimento.newAlimento}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
-              New Alimento
+              Nuevo Alimento
             </Button>
           }
         />

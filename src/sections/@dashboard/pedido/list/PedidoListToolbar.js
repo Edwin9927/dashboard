@@ -21,10 +21,10 @@ UserListToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
   onFilterName: PropTypes.func,
-  onDeleteUsers: PropTypes.func,
+  onDeletePedidos: PropTypes.func,
 };
 
-export default function UserListToolbar({ numSelected, filterName, onFilterName, onDeleteUsers }) {
+export default function UserListToolbar({ numSelected, filterName, onFilterName, onDeletePedidos }) {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
 
@@ -46,7 +46,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName,
           stretchStart={240}
           value={filterName}
           onChange={(event) => onFilterName(event.target.value)}
-          placeholder="Buscar usuario..."
+          placeholder="Buscar pedido..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -58,8 +58,8 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName,
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton onClick={onDeleteUsers}>
+        <Tooltip title="Eliminar">
+          <IconButton onClick={onDeletePedidos}>
             <Iconify icon={'eva:trash-2-outline'} />
           </IconButton>
         </Tooltip>

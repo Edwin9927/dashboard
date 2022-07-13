@@ -14,10 +14,10 @@ import MenuPopover from '../../../../components/MenuPopover';
 
 UserMoreMenu.propTypes = {
   onDelete: PropTypes.func,
-  userName: PropTypes.string,
+    idPedido: PropTypes.string,
 };
 
-export default function UserMoreMenu({ onDelete, userName }) {
+export default function UserMoreMenu({ onDelete, idPedido }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -58,10 +58,13 @@ export default function UserMoreMenu({ onDelete, userName }) {
           Eliminar
         </MenuItem>
 
-        <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.user.root}/${paramCase(userName)}/edit`}>
-          <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
-          Editar
-        </MenuItem>
+          {/*
+          <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.pedido.root}/${paramCase(idPedido)}/edit`}>
+              <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
+              Editar
+          </MenuItem>
+          */}
+
       </MenuPopover>
     </>
   );
