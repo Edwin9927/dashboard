@@ -25,7 +25,7 @@ const navConfig = [
     items: [
       { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
       { title: 'Estadisticas', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
-      { title: 'Reservas', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      { title: 'Reservas', path: PATH_DASHBOARD.general.reserva, icon: ICONS.booking },
     ],
   },
 
@@ -59,6 +59,7 @@ const navConfig = [
           { title: 'crear', path: PATH_DASHBOARD.alimento.newAlimento },
         ],
       },
+      //MESAS
       {
         title: 'mesa',
         path: PATH_DASHBOARD.mesa.root,
@@ -69,7 +70,7 @@ const navConfig = [
         ],
       },
 
-      // Pididos
+      // Pedidos
       {
         title: 'Pedidos',
         path: PATH_DASHBOARD.pedido.root,

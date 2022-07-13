@@ -56,6 +56,7 @@ export default function Router() {
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralApp /> },
         { path: 'analytics', element: <GeneralAnalytics /> },
+        { path: 'reserva/list', element: <ReservaList/>},
         
         {
           path: 'user',
@@ -131,7 +132,7 @@ const MesaCreate = Loadable(lazy(() => import('../pages/dashboard/MesaCreate')))
 const MesaList = Loadable(lazy(() => import('../pages/dashboard/MesaList')));
 const PedidoCreate = Loadable(lazy(() => import('../pages/dashboard/PedidoCreate')));
 const PedidoList = Loadable(lazy(() => import('../pages/dashboard/PedidoList')));
-
+const ReservaList = Loadable(lazy(() => import('../pages/dashboard/ReservaList')));
 
 // Main
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
