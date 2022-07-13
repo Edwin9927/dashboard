@@ -73,7 +73,7 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get('/api/account/my-account');
+          const response = await axios.get('http://localhost:8080/api/usuarios/');
           const { user } = response.data;
 
           dispatch({
@@ -115,36 +115,23 @@ function AuthProvider({ children }) {
     let logindata = { "usernameorEmail": usernameorEmail, "password": password };
 
     const response = await axios.post(url+"/authenticate", logindata);
-    
-    console.log(response.data);
-
-    let token = {'accessToken':response.data.tokenAcceso};
-
-    const { accessToken, user } = token;
-
-
-    console.log(response.data.tokenAcceso);
-    console.log(accessToken);
-
     const id = response.data.id;
+    console.log(id);
 
-    console.log("id", id);
-
-     /*const userData = {'user':{
-      "id": userdata.data.idUsuario,
-      "displayName": userdata.data.apellido + " " + userdata.data.nombre,
-      "email:": userdata.data.email,
-      "role": userdata.data.rol,
-      "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_default.jpg"
-    }}*/
-
+    
     const data = await fetch("http://localhost:8080/api/usuarios/"+id);
     const resp = await data.json();
 
-    console.log(resp);
+    let token = {
+      'accessToken':response.data.tokenAcceso,
+      'user': resp
+    };
 
-    
+    const { accessToken, user } = token;
 
+    console.group("USUARIO");
+    console.log(user);
+    console.groupEnd();
 
     setSession(accessToken);
     dispatch({
