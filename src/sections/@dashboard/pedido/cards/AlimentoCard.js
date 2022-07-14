@@ -24,12 +24,12 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-UserCard.propTypes = {
-  user: PropTypes.object.isRequired,
+PedidoCard.propTypes = {
+  pedido: PropTypes.object.isRequired,
 };
 
-export default function UserCard({ user }) {
-  const { name, cover, position, follower, totalPost, avatarUrl, following } = user;
+export default function PedidoCard({ pedido }) {
+  const { idAlimento, idMenu, imagen, nombre, descripcion, precio, disponibilidad } = pedido;
 
   return (
     <Card sx={{ textAlign: 'center' }}>
@@ -63,43 +63,44 @@ export default function UserCard({ user }) {
           }}
         />
         <OverlayStyle />
-        <Image src={cover} alt={cover} ratio="16/9" />
+        <Image src={imagen} alt={imagen} ratio="16/9" />
       </Box>
 
       <Typography variant="subtitle1" sx={{ mt: 6 }}>
-        {name}
+        {nombre}
       </Typography>
 
+        {/* Descripcion */}
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        {position}
+        {descripcion}
       </Typography>
 
-      <Stack alignItems="center">
-        <SocialsButton initialColor sx={{ my: 2.5 }} />
-      </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
       <Box sx={{ py: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+          {/*
+          Pie de la tarjeta
+          */}
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.75, color: 'text.disabled' }}>
-            Follower
+
           </Typography>
-          <Typography variant="subtitle1">{fShortenNumber(follower)}</Typography>
+          <Typography variant="subtitle1">{fShortenNumber()}</Typography>
         </div>
 
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.75, color: 'text.disabled' }}>
-            Following
+              Precio
           </Typography>
-          <Typography variant="subtitle1">{fShortenNumber(following)}</Typography>
+          <Typography variant="subtitle1">{fShortenNumber(precio)}</Typography>
         </div>
 
         <div>
           <Typography variant="caption" component="div" sx={{ mb: 0.75, color: 'text.disabled' }}>
-            Total Post
+
           </Typography>
-          <Typography variant="subtitle1">{fShortenNumber(totalPost)}</Typography>
+          <Typography variant="subtitle1">{fShortenNumber()}</Typography>
         </div>
       </Box>
     </Card>

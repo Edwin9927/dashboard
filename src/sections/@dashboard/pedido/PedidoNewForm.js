@@ -17,38 +17,36 @@ import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-
 
 // ----------------------------------------------------------------------
 
-UserNewForm.propTypes = {
+PedidoNewForm.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
+  currentPedido: PropTypes.object,
 };
 
-export default function UserNewForm({ isEdit, currentUser }) {
+export default function PedidoNewForm({ isEdit, currentPedido }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const NewUserSchema = Yup.object().shape({
-    nombre: Yup.string().required('Campo requerido'),
-    email: Yup.string().required('Campo requerido').email(),
-    apellido: Yup.string().required('Campo requerido'),
-    cedula: Yup.string().required('Campo requerido'),
-    role: Yup.string().required('Campo requerido'),
+  const NewPedidoSchema = Yup.object().shape({
+    fecha: Yup.string().required('Campo requerido'),
+    hora: Yup.string().required('Campo requerido').email(),
+    estadoPedido: Yup.string().required('Campo requerido'),
+    detallePedidos: Yup.string().required('Campo requerido'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      nombre: currentUser?.nombre || '',
-      email: currentUser?.email || '',
-      apellido: currentUser?.apellido || '',
-      cedula: currentUser?.cedula || '',
-      role: currentUser?.role || '',
+      fecha: currentPedido?.fecha || '',
+      hora: currentPedido?.hora || '',
+      estadoPedido: currentPedido?.estadoPedido || '',
+      detallePedidos: currentPedido?.detallePedidos || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentUser]
+    [currentPedido]
   );
 
   const methods = useForm({
-    resolver: yupResolver(NewUserSchema),
+    resolver: yupResolver(NewPedidoSchema),
     defaultValues,
   });
 
@@ -63,21 +61,21 @@ export default function UserNewForm({ isEdit, currentUser }) {
   const values = watch();
 
   useEffect(() => {
-    if (isEdit && currentUser) {
+    if (isEdit && currentPedido) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentUser]);
+  }, [isEdit, currentPedido]);
 
   const onSubmit = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
-      navigate(PATH_DASHBOARD.user.list);
+      navigate(PATH_DASHBOARD.pedido.list);
     } catch (error) {
       console.error(error);
     }
@@ -105,19 +103,18 @@ export default function UserNewForm({ isEdit, currentUser }) {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="nombre" label="Nombre" />
-              <RHFTextField name="apellido" label="Apellido" />
+              <RHFTextField name="fecha" label="Fecha" />
+              <RHFTextField name="hora" label="Hora" />
               <RHFTextField name="email" label="Correo electrónico" />
               <RHFTextField name="cedula" label="Cedula" />
               
-              <RHFSelect name="role" label="Rol" placeholder="Rol">
+              <RHFSelect name="estadoPedido" label="Estado" placeholder="Estado">
                 <option label='' />
-                <option value="ROLE_ADMIN" label='Administrador' />
-                <option value="ROLE_CAJERO" label='Cajero' />
-                <option value="ROLE_MESERO" label='Mesero' />
+                <option value="pendiente" label='Pendiente' />
+                <option value="anulado" label='Anulado' />
+                <option value="entregado" label='Entregado' />
               </RHFSelect>
 
-              <RHFTextField name="role" label="Rol" />
             </Box>
 
             <Stack alignItems="flex" sx={{ mt: 3 }}>
