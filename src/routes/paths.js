@@ -74,6 +74,13 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/reserva/list'),
     list: path(ROOTS_DASHBOARD, '/reserva/list'),
   },
+  venta:{
+    root: path(ROOTS_DASHBOARD, '/venta'),
+    list: path(ROOTS_DASHBOARD, '/venta/list'),
+    newVenta : path(ROOTS_DASHBOARD, '/venta/new'),
+    editVentaById: path(ROOTS_DASHBOARD, '/venta/nombre/edit')
+  },
+
 
 };
 

@@ -80,6 +80,16 @@ const navConfig = [
           { title: 'create', path: PATH_DASHBOARD.pedido.newPedido },
         ],
       },
+      //Ventas
+      {
+        title: 'Ventas',
+        path: PATH_DASHBOARD.venta.root,
+        icon: ICONS.user,
+        children: [
+          { title: 'lista', path: PATH_DASHBOARD.venta.list },
+          { title: 'crear', path: PATH_DASHBOARD.venta.newVenta },
+        ],
+      },
     ],
   },
 
