@@ -13,7 +13,11 @@ import { Box, Card, Grid, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
+import { AlimentoCard } from '../../sections/@dashboard/pedido/cards';
+
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
+import {_userCards} from "../../../_mock";
+import {UserCard} from "../user/cards";
 
 // ----------------------------------------------------------------------
 
@@ -98,15 +102,13 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
             <Box
               sx={{
                 display: 'grid',
-                columnGap: 2,
-                rowGap: 3,
-                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+                columnGap: 5,
+                rowGap: 6,
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(3, 1fr)' },
               }}
             >
               <RHFTextField name="fecha" label="Fecha" />
               <RHFTextField name="hora" label="Hora" />
-              <RHFTextField name="email" label="Correo electrónico" />
-              <RHFTextField name="cedula" label="Cedula" />
               
               <RHFSelect name="estadoPedido" label="Estado" placeholder="Estado">
                 <option label='' />
@@ -116,14 +118,31 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
               </RHFSelect>
 
             </Box>
+            <Grid item xs={12} md={8}>
+              <Card sx={{ p: 3 }}>
+
+            <Box
+                sx={{
+                  display: 'grid',
+                  columnGap: 5,
+                  rowGap: 6,
+                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(5, 1fr)' },
+                }}
+            >
+              {_AlimentoCards.map((alimento) => (
+                  <UserCard key={alimento.id} user={alimento} />
+              ))}
+            <Box/>
+              <Card/>
 
             <Stack alignItems="flex" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Crear Usuario' : 'Guardar Cambios'}
+                {!isEdit ? 'Crear Pedido' : 'Guardar Cambios'}
               </LoadingButton>
             </Stack>
           </Card>
         </Grid>
+      </Grid>
       </Grid>
     </FormProvider>
   );
