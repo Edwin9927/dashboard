@@ -33,7 +33,6 @@ export default function MenuMoreMenu({ onDelete, nombre }) {
       width: 20,
       height: 20,
     };
-    console.log("nombre", nombre);
     return (
       <>
         <IconButton onClick={handleOpen}>
