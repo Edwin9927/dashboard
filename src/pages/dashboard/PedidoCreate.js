@@ -16,17 +16,17 @@ import PedidoNewForm from "../../sections/@dashboard/pedido/PedidoNewForm";
 
 // ----------------------------------------------------------------------
 
-export default function MesaCreate() {
+export default function PedidoCreate() {
     const { themeStretch } = useSettings();
     const { pathname } = useLocation();
     const { name = '' } = useParams();
     const isEdit = pathname.includes('edit');
 
     return (
-        <Page title="Mesa: Crear mesa">
+        <Page title="Pedido: Crear pedido">
             <Container maxWidth={themeStretch ? false : 'lg'}>
                 <HeaderBreadcrumbs
-                    heading={!isEdit ? 'Crear mesa' : 'Editar mesa'}
+                    heading={!isEdit ? 'Crear pedido' : 'Editar pedido'}
                     links={[
                         { name: 'Dashboard', href: PATH_DASHBOARD.root },
                         { name: 'Pedido', href: PATH_DASHBOARD.pedido.list },
