@@ -49,8 +49,8 @@ export default function PedidoCard({ pedido }) {
           }}
         />
         <Avatar
-          alt={name}
-          src={avatarUrl}
+          alt={nombre}
+          src={imagen}
           sx={{
             width: 64,
             height: 64,

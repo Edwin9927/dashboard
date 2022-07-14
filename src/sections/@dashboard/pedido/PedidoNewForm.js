@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -13,11 +13,11 @@ import { Box, Card, Grid, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
-import { AlimentoCard } from '../../sections/@dashboard/pedido/cards';
+import { AlimentoCard } from '../../@dashboard/pedido/cards';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
-import {_userCards} from "../../../_mock";
-import {UserCard} from "../user/cards";
+
+import { getPedido } from '../../../services/getPedido'
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +30,8 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const [ _AlimentoCards, set_AlimenttoCards ] = useState([]);
 
   const NewPedidoSchema = Yup.object().shape({
     fecha: Yup.string().required('Campo requerido'),
@@ -65,6 +67,7 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
   const values = watch();
 
   useEffect(() => {
+     // getPedido().then(res => set_AlimenttoCards(res));
     if (isEdit && currentPedido) {
       reset(defaultValues);
     }
@@ -118,31 +121,33 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
               </RHFSelect>
 
             </Box>
-            <Grid item xs={12} md={8}>
-              <Card sx={{ p: 3 }}>
+          </Card>
+        </Grid>
 
-            <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 5,
-                  rowGap: 6,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(5, 1fr)' },
-                }}
-            >
-              {_AlimentoCards.map((alimento) => (
-                  <UserCard key={alimento.id} user={alimento} />
-              ))}
-            <Box/>
-              <Card/>
+        <Grid item xs={12} md={8}>
+            <Card sx={{ p: 3 }}>
 
+              <Box
+                  sx={{
+                    display: 'grid',
+                    columnGap: 5,
+                    rowGap: 6,
+                    gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(5, 1fr)' },
+                  }}
+              >
+                {_AlimentoCards.map((alimento) => (
+                    <AlimentoCard key={alimento.id} user={alimento} />
+                ))}
+              </Box>
+            </Card>
+
+        </Grid>
             <Stack alignItems="flex" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                 {!isEdit ? 'Crear Pedido' : 'Guardar Cambios'}
               </LoadingButton>
             </Stack>
-          </Card>
-        </Grid>
-      </Grid>
+
       </Grid>
     </FormProvider>
   );
