@@ -48,6 +48,16 @@ const navConfig = [
           { title: 'account', path: PATH_DASHBOARD.user.account },
         ],
       },
+        // MENU
+      {
+        title: 'Menu',
+        path: PATH_DASHBOARD.menu.root,
+        icon: ICONS.user,
+        children: [
+          { title: 'lista', path: PATH_DASHBOARD.menu.list },
+          { title: 'crear', path: PATH_DASHBOARD.menu.newMesa },
+        ],
+      },
 
       // ALIMENTOS
       {
@@ -61,7 +71,7 @@ const navConfig = [
       },
       //MESAS
       {
-        title: 'mesa',
+        title: 'Mesa',
         path: PATH_DASHBOARD.mesa.root,
         icon: ICONS.user,
         children: [

@@ -79,6 +79,14 @@ export default function Router() {
           ],
         },
         {
+          path: 'menu',
+          children:[
+            {element: <Navigate to="/dashboard/menu/list" replace />, index: true},
+            {path: 'list', element: <MenuList />},
+            {path: 'new', element: <MenuCreate />}
+          ],
+        },
+        {
           path: 'alimento',
           children:[
             {element: <Navigate to="/dashboard/alimento/list" replace />, index: true},
@@ -130,6 +138,8 @@ const AlimentoCreate = Loadable(lazy(() => import('../pages/dashboard/AlimentoCr
 const AlimentoList = Loadable(lazy(() => import('../pages/dashboard/AlimentoList')));
 const MesaCreate = Loadable(lazy(() => import('../pages/dashboard/MesaCreate')));
 const MesaList = Loadable(lazy(() => import('../pages/dashboard/MesaList')));
+const MenuCreate = Loadable(lazy(() => import('../pages/dashboard/MenuCreate')));
+const MenuList = Loadable(lazy(() => import('../pages/dashboard/MenuList')));
 const PedidoCreate = Loadable(lazy(() => import('../pages/dashboard/PedidoCreate')));
 const PedidoList = Loadable(lazy(() => import('../pages/dashboard/PedidoList')));
 const ReservaList = Loadable(lazy(() => import('../pages/dashboard/ReservaList')));
