@@ -6,8 +6,6 @@ import { Container } from '@mui/material';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
-// _mock_
-import { _alimentoList } from '../../_mock';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
@@ -21,16 +19,7 @@ export default function AlimentoCreate() {
   const { pathname } = useLocation();
   const { name = '' } = useParams();
   const isEdit = pathname.includes('edit');
-
-/*   const urlAlimento = "http://localhost:8080/api/alimentos";
-  let _alimentoList;
-  fetch(urlAlimento)
-    .then(response => response.json())
-    .then(json => _alimentoList = json)
-    .then(()=> console.log(_alimentoList))
- */
-  const currentAlimento = _alimentoList.find((alimento) => paramCase(alimento) === name);
-
+  
   return (
     <Page title="Alimento: Crear alimento">
       <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -43,7 +32,7 @@ export default function AlimentoCreate() {
           ]}
         />
 
-        <AlimentosForm isEdit={isEdit} />
+        <AlimentosForm isEdit={isEdit}/>
       </Container>
     </Page>
   );

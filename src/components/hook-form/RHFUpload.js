@@ -14,17 +14,18 @@ RHFUploadAvatar.propTypes = {
 
 export function RHFUploadAvatar({ name, ...other }) {
   const { control } = useFormContext();
-
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => {
         const checkError = !!error && !field.value;
-
         return (
           <div>
-            <UploadAvatar error={checkError} {...other} file={field.value} />
+            <UploadAvatar error={checkError} {...other} 
+              file={typeof field.value == "string" ? 
+                `data:image/jpeg;base64,${field.value}`:
+                  field.value} />
             {checkError && (
               <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
                 {error.message}

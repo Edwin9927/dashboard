@@ -28,6 +28,10 @@ import {
   RHFTextField,
   RHFUploadAvatar,
 } from "../../../components/hook-form";
+import getMenus from "../../../services/menu";
+import React from 'react';
+import ingresarAlimento from '../../../services/alimentos'
+
 
 AlimentosForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -38,14 +42,15 @@ export default function AlimentosForm() {
   const navigate = useNavigate();
   const data = useLocation();
 
-  const isEdit = data.state.isEdit;
-  const currentAlimento = data.state.currentAlimento;
+  const isEdit = data.state && data.state.isEdit;
+  const currentAlimento = data.state && data.state.currentAlimento;
 
   const { enqueueSnackbar } = useSnackbar();
+  const [ menu, setMenu ] = React.useState([]);
 
   //constante para validar el esquema
   const NewAlimentoSchema = Yup.object().shape({
-    menu: Yup.string().required("Menú es requerido"),
+    menu: Yup.number().required("Menú es requerido"),
     imagen: Yup.mixed().test(
       "required",
       "Imagen es requerida",
@@ -60,7 +65,7 @@ export default function AlimentosForm() {
   //constante para inicializar los valores por defecto
   const defaultValues = useMemo(
     () => ({
-      menu: currentAlimento?.menu || "",
+      menu: currentAlimento?.menu || 0,
       imagen: currentAlimento?.imagen || "",
       nombre: currentAlimento?.nombre || "",
       descripcion: currentAlimento?.descripcion || "",
@@ -76,6 +81,7 @@ export default function AlimentosForm() {
   });
 
   const {
+    register,
     reset,
     watch,
     control,
@@ -87,6 +93,7 @@ export default function AlimentosForm() {
   const values = watch();
 
   useEffect(() => {
+    getMenus().then(res => setMenu(res));
     if (isEdit && currentAlimento) {
       reset(defaultValues);
     }
@@ -96,11 +103,16 @@ export default function AlimentosForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentAlimento]);
 
-  const onSubmit = async () => {
+
+  const onSubmit = async (values) => {
+    /*const token = window.localStorage.getItem('token');
+    const {accessToken, user} = token; */
+    console.log(values);   
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      //const respuesta = !isEdit ? ingresarAlimento(values) : '';
+      
+      
       reset();
-      //CREAR LA OPERACION DE INGRESO
       enqueueSnackbar(!isEdit ? "Alimento creado satisfactoriamente!" : "Actualización exitosa!");
       navigate(PATH_DASHBOARD.alimento.list);
     } catch (error) {
@@ -123,6 +135,8 @@ export default function AlimentosForm() {
     },
     [setValue]
   );
+
+  console.log(values);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -180,15 +194,23 @@ export default function AlimentosForm() {
                   },
                 }}
               >
-                <RHFSelect name="menu" label="Menú" placeholder="Menú">
-                  <option value="" />
-                  <option value="Primeros" label="Primeros" />
+                <RHFSelect name="menu"
+                  placeholder="Menú"
+                  defValue={currentAlimento.idMenu}>
+                  <option label="--- Seleccione un menú ---"/>
+                {
+                  menu.map((item)=>{
+                      return (<option value={item.id} label={item.nombre}/>);
+                  })
+                }
                 </RHFSelect>
                 <RHFTextField name="nombre" label="nombre" />
                 <RHFTextField name="descripcion" label="descripcion" />
                 <RHFTextField name="precio" label="precio" />
-                <RHFSelect name="disponibilidad" label="disponibilidad" placeholder="disponibilidad">
-                  <option label = ""/>
+                <RHFSelect name="disponibilidad"
+                 placeholder="disponibilidad" label="disponibilidad"
+                  defValue={currentAlimento.disponibilidad ? 1 : 0}>
+                  <option label="--- Seleccione la disponibilidad ---"/>
                   <option value = "0" label = "No"/>
                   <option value = "1" label = "Si"/>
                 </RHFSelect>
@@ -201,7 +223,7 @@ export default function AlimentosForm() {
                   variant="contained"
                   loading={isSubmitting}
                 >
-                  {!isEdit ? "Create Alimento" : "Save Changes"}
+                  {!isEdit ? "Ingresar alimento" : "Guardar cambios"}
                 </LoadingButton>
               </Stack>
             </Card>
