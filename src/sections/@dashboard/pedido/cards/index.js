@@ -1,1 +1,1 @@
-export { default as UserCard } from './UserCard';
+export { default as AlimentoCard } from './AlimentoCard';
