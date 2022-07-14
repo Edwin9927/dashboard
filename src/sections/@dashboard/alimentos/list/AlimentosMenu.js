@@ -33,7 +33,7 @@ export default function AlimentosMenu({ onDelete, alimento }) {
     width: 20,
     height: 20,
   };
-  console.log("alimento", alimento);
+
   return (
     <>
       <IconButton onClick={handleOpen}>

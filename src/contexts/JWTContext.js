@@ -124,7 +124,7 @@ function AuthProvider({ children }) {
     console.log(user);
     console.groupEnd();
 
-    setSession(accessToken);
+    setSession(token);
     dispatch({
       type: 'LOGIN',
       payload: {
