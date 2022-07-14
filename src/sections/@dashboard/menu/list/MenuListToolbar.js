@@ -15,14 +15,14 @@ const RootStyle = styled(Toolbar)(({ theme }) => ({
     padding: theme.spacing(0, 1, 0, 3),
   }));
   
-MesaListToolbar.propTypes = {
+MenuListToolbar.propTypes = {
     numSelected: PropTypes.number,
     filterName: PropTypes.string,
     onFilterName: PropTypes.func,
-    onDeleteMesa: PropTypes.func,
+    onDeleteMenu: PropTypes.func,
 };
 
-export default function MesaListToolbar({ numSelected, filterName, onFilterName, onDeleteMesa }) {
+export default function MenuListToolbar({ numSelected, filterName, onFilterName, onDeleteMenu }) {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
   
@@ -44,7 +44,7 @@ export default function MesaListToolbar({ numSelected, filterName, onFilterName,
           stretchStart={240}
           value={filterName}
           onChange={(event) => onFilterName(event.target.value)}
-          placeholder="Buscar mesa..."
+          placeholder="Buscar menu..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -57,7 +57,7 @@ export default function MesaListToolbar({ numSelected, filterName, onFilterName,
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={onDeleteMesa}>
+          <IconButton onClick={onDeleteMenu}>
             <Iconify icon={'eva:trash-2-outline'} />
           </IconButton>
         </Tooltip>

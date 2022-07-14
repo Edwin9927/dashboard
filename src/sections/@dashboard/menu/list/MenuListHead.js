@@ -14,7 +14,7 @@ const visuallyHidden = {
     width: '1px',
   };
 
-  MesaListHead.propTypes = {
+  MenuListHead.propTypes = {
     order: PropTypes.oneOf(['asc', 'desc']),
     orderBy: PropTypes.string,
     rowCount: PropTypes.number,
@@ -24,7 +24,7 @@ const visuallyHidden = {
     onSelectAllClick: PropTypes.func,
   };
   
-  export default function MesaListHead({
+  export default function MenuListHead({
     order,
     orderBy,
     rowCount,

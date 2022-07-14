@@ -17,34 +17,32 @@ import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-
 
 // ----------------------------------------------------------------------
 
-MesaNewForm.propTypes = {
+MenuNewForm.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
 };
 
-export default function MesaNewForm({ isEdit, currentMesa }) {
+export default function MenuNewForm({ isEdit, currentMenu }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const NewMesaSchema = Yup.object().shape({
+  const NewMenuSchema = Yup.object().shape({
     nombre: Yup.string().required('Campo requerido'),
-    capacidad: Yup.number().required('Campo requerido'),
-    estado: Yup.string().required('Campo requerido'),
+    tipo: Yup.string().required('Campo requerido'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      nombre: currentMesa?.nombre || '',
-      capacidad: currentMesa?.capacidad || '',
-      estado: currentMesa?.estado || '',
+      nombre: currentMenu?.nombre || '',
+      tipo: currentMenu?.tipo || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentMesa]
+    [currentMenu]
   );
 
   const methods = useForm({
-    resolver: yupResolver(NewMesaSchema),
+    resolver: yupResolver(NewMenuSchema),
     defaultValues,
   });
 
@@ -59,14 +57,14 @@ export default function MesaNewForm({ isEdit, currentMesa }) {
   const values = watch();
 
   useEffect(() => {
-    if (isEdit && currentMesa) {
+    if (isEdit && currentMenu) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentMesa]);
+  }, [isEdit, currentMenu]);
 
   const onSubmit = async () => {
     try {
@@ -102,29 +100,20 @@ export default function MesaNewForm({ isEdit, currentMesa }) {
               }}
             >
               <RHFTextField name="nombre" label="Nombre" />
-              <RHFSelect name="capacidad" label="Capacidad">
+              <RHFSelect name="tipo" label="tipo">
                 <option label='' />
-                <option value="1" label='1' />
-                <option value="2" label='2' />
-                <option value="3" label='3' />
-                <option value="4" label='4' />
-                <option value="5" label='5' />
-                <option value="6" label='6' />
-                <option value="7" label='7' />
-                <option value="8" label='8' />
-                <option value="9" label='9' />
-                <option value="10" label='10' />
-              </RHFSelect>
-              <RHFSelect name="estado" label="Estado">
-                <option label='' />
-                <option value = "0" label = "No disponible"/>
-                <option value = "1" label = "Disponible"/>
+                <option value = "bebidas" label = "Bebidas"/>
+                <option value = "postres" label = "Postres"/>
+                <option value = "primeros" label = "Primeros"/>
+                <option value = "segundos" label = "Segundos"/>
+                <option value = "ensaladas" label = "Ensaladas"/>
+                <option value = "sopas" label = "Sopas"/>
               </RHFSelect>
             </Box>
 
             <Stack alignItems="flex" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Crear Mesa' : 'Guardar Cambios'}
+                {!isEdit ? 'Crear Menu' : 'Guardar Cambios'}
               </LoadingButton>
             </Stack>
           </Card>

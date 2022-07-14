@@ -12,12 +12,12 @@ import MenuPopover from '../../../../components/MenuPopover';
 
 // ----------------------------------------------------------------------
 
-MesaMenu.propTypes = {
+MenuMoreMenu.propTypes = {
     onDelete: PropTypes.func,
     nombre: PropTypes.string,
 };
 
-export default function MesaMenu({ onDelete, nombre }) {
+export default function MenuMoreMenu({ onDelete, nombre }) {
     const [open, setOpen] = useState(null);
   
     const handleOpen = (event) => {
@@ -58,7 +58,7 @@ export default function MesaMenu({ onDelete, nombre }) {
             Delete
           </MenuItem>
   
-          <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.mesa.root}/${paramCase(nombre)}/edit`}>
+          <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.menu.root}/${paramCase(nombre)}/edit`}>
             <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
             Edit
           </MenuItem>
