@@ -55,7 +55,7 @@ const navConfig = [
         icon: ICONS.user,
         children: [
           { title: 'lista', path: PATH_DASHBOARD.menu.list },
-          { title: 'crear', path: PATH_DASHBOARD.menu.newMesa },
+          { title: 'crear', path: PATH_DASHBOARD.menu.newMenu },
         ],
       },
 
