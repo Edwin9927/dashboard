@@ -19,7 +19,7 @@ import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-
 
 MesaNewForm.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
+  currentMesa: PropTypes.object,
 };
 
 export default function MesaNewForm({ isEdit, currentMesa }) {

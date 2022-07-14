@@ -102,6 +102,14 @@ export default function Router() {
             {path: 'list', element: <PedidoList />},
             {path: 'new', element: <PedidoCreate />}
           ],
+        },
+        {
+          path: 'venta',
+          children:[
+            {element: <Navigate to="/dashboard/venta/list" replace />, index: true},
+            {path: 'list', element: <VentaList />},
+            {path: 'new', element: <VentaCreate />}
+          ],
         }
       ],
     },
@@ -143,6 +151,8 @@ const MenuList = Loadable(lazy(() => import('../pages/dashboard/MenuList')));
 const PedidoCreate = Loadable(lazy(() => import('../pages/dashboard/PedidoCreate')));
 const PedidoList = Loadable(lazy(() => import('../pages/dashboard/PedidoList')));
 const ReservaList = Loadable(lazy(() => import('../pages/dashboard/ReservaList')));
+const VentaList = Loadable(lazy(() => import('../pages/dashboard/VentaList')));
+const VentaCreate = Loadable(lazy(() => import('../pages/dashboard/VentaCreate')));
 
 // Main
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
