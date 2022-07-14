@@ -14,11 +14,11 @@ export default function SearchNotFound({ searchQuery = '', ...other }) {
         Not found
       </Typography>
       <Typography variant="body2" align="center">
-        No results found for &nbsp;
-        <strong>&quot;{searchQuery}&quot;</strong>. Try checking for typos or using complete words.
+          No se encontraron resultados para &nbsp;
+        <strong>&quot;{searchQuery}&quot;</strong>. Verifique posibles errores tipográficos o use la palabra completa.
       </Typography>
     </Paper>
   ) : (
-    <Typography variant="body2"> Please enter keywords</Typography>
+    <Typography variant="body2"> Por favor ingrese las palabras clave</Typography>
   );
 }
