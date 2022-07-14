@@ -65,7 +65,7 @@ export default function AlimentosForm() {
   //constante para inicializar los valores por defecto
   const defaultValues = useMemo(
     () => ({
-      menu: currentAlimento?.menu || 0,
+      menu: currentAlimento?.menu || "",
       imagen: currentAlimento?.imagen || "",
       nombre: currentAlimento?.nombre || "",
       descripcion: currentAlimento?.descripcion || "",
@@ -196,7 +196,7 @@ export default function AlimentosForm() {
               >
                 <RHFSelect name="menu"
                   placeholder="Menú"
-                  defValue={currentAlimento.idMenu}>
+                  defValue={ isEdit ? currentAlimento.idMenu : 0}>
                   <option label="--- Seleccione un menú ---"/>
                 {
                   menu.map((item)=>{
@@ -209,7 +209,8 @@ export default function AlimentosForm() {
                 <RHFTextField name="precio" label="precio" />
                 <RHFSelect name="disponibilidad"
                  placeholder="disponibilidad" label="disponibilidad"
-                  defValue={currentAlimento.disponibilidad ? 1 : 0}>
+                 defValue={isEdit ? (currentAlimento.disponibilidad ? 1 : 0) : 0}
+                  >
                   <option label="--- Seleccione la disponibilidad ---"/>
                   <option value = "0" label = "No"/>
                   <option value = "1" label = "Si"/>

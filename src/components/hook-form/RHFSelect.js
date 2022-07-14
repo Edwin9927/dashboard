@@ -18,7 +18,7 @@ RHFSelect.propTypes = {
 export default function RHFSelect({ name, children, defValue, ...other }) {
   const { control } = useFormContext();
   const [value, setValue] = React.useState(defValue);
-  console.log(name);
+
   return (
     <Controller
       name={name}
@@ -28,8 +28,11 @@ export default function RHFSelect({ name, children, defValue, ...other }) {
           {...field}
           select
           fullWidth
-          value={defValue}
-          onChange={(evt)=>field.onChange(evt.target.value)}
+          value={value}
+          onChange={(evt)=>{
+            field.onChange(evt.target.value);
+            setValue(evt.target.value);
+          }}
           SelectProps={{ native: true }}
           error={!!error}
           helperText={error?.message}
