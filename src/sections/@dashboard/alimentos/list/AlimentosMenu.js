@@ -27,6 +27,7 @@ export default function AlimentosMenu({ onDelete, alimento }) {
   const handleClose = () => {
     setOpen(null);
   };
+  
 
   const ICON = {
     mr: 2,
