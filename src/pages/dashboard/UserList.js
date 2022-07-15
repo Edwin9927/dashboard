@@ -70,7 +70,7 @@ export default function UserList() {
   const [userList, setUserList] = useState([]);
   useEffect(() => {
     getUsuario()
-      .then(res => setUserList(res));
+        .then(res => setUserList(res));
   },[]);
 // ----------------------------------------------------------------------
   console.log(userList);
@@ -96,11 +96,11 @@ export default function UserList() {
     setSelected([]);
   };
 
-  const handleClick = (name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (nombre) => {
+    const selectedIndex = selected.indexOf(nombre);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, nombre);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -140,109 +140,109 @@ export default function UserList() {
   const isNotFound = !filteredUsers.length && Boolean(filterName);
 
   return (
-    <Page title="User: List">
-      <Container maxWidth={themeStretch ? false : 'lg'}>
-        <HeaderBreadcrumbs
-          heading="Listado de Usuarios"
-          links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Usuario', href: PATH_DASHBOARD.user.root },
-            { name: 'Listado' },
-          ]}
-          action={
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to={PATH_DASHBOARD.user.newUser}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}
-            >
-              Nuevo Usuario
-            </Button>
-          }
-        />
-
-        <Card>
-          <UserListToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
-            onDeleteUsers={() => handleDeleteMultiUser(selected)}
+      <Page title="User: List">
+        <Container maxWidth={themeStretch ? false : 'lg'}>
+          <HeaderBreadcrumbs
+              heading="Listado de Usuarios"
+              links={[
+                { name: 'Dashboard', href: PATH_DASHBOARD.root },
+                { name: 'Usuario', href: PATH_DASHBOARD.user.root },
+                { name: 'Listado' },
+              ]}
+              action={
+                <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to={PATH_DASHBOARD.user.newUser}
+                    startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  Nuevo Usuario
+                </Button>
+              }
           />
 
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
-              <Table>
-                <UserListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={userList.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
-                />
-                <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, nombre, apellido, email, cedula, rol, } = row;
-                    const isItemSelected = selected.indexOf(nombre) !== -1;
+          <Card>
+            <UserListToolbar
+                numSelected={selected.length}
+                filterName={filterName}
+                onFilterName={handleFilterByName}
+                onDeleteUsers={() => handleDeleteMultiUser(selected)}
+            />
 
-                    return (
-                      <TableRow
-                        hover
-                        key={id}
-                        tabIndex={-1}
-                        rol="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onClick={() => handleClick(nombre)} />
-                        </TableCell>
-
-                        <TableCell align="left">{nombre}</TableCell>
-                        <TableCell align="left">{apellido}</TableCell>
-                        <TableCell align="left">{email}</TableCell>
-                        <TableCell align="left">{cedula}</TableCell>
-                        <TableCell align="left">{rol}</TableCell>
-
-
-                        <TableCell align="right">
-                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={nombre} />
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
-                {isNotFound && (
+            <Scrollbar>
+              <TableContainer sx={{ minWidth: 800 }}>
+                <Table>
+                  <UserListHead
+                      order={order}
+                      orderBy={orderBy}
+                      headLabel={TABLE_HEAD}
+                      rowCount={userList.length}
+                      numSelected={selected.length}
+                      onRequestSort={handleRequestSort}
+                      onSelectAllClick={handleSelectAllClick}
+                  />
                   <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
-              </Table>
-            </TableContainer>
-          </Scrollbar>
+                    {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                      const { id, nombre, apellido, email, cedula, rol, } = row;
+                      const isItemSelected = selected.indexOf(nombre) !== -1;
 
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={userList.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={(e, page) => setPage(page)}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Card>
-      </Container>
-    </Page>
+                      return (
+                          <TableRow
+                              hover
+                              key={id}
+                              tabIndex={-1}
+                              rol="checkbox"
+                              selected={isItemSelected}
+                              aria-checked={isItemSelected}
+                          >
+                            <TableCell padding="checkbox">
+                              <Checkbox checked={isItemSelected} onClick={() => handleClick(nombre)} />
+                            </TableCell>
+
+                            <TableCell align="left">{nombre}</TableCell>
+                            <TableCell align="left">{apellido}</TableCell>
+                            <TableCell align="left">{email}</TableCell>
+                            <TableCell align="left">{cedula}</TableCell>
+                            <TableCell align="left">{rol}</TableCell>
+
+
+                            <TableCell align="right">
+                              <UserMoreMenu onDelete={() => handleDeleteUser(id)} user={row} />
+                            </TableCell>
+                          </TableRow>
+                      );
+                    })}
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                          <TableCell colSpan={6} />
+                        </TableRow>
+                    )}
+                  </TableBody>
+                  {isNotFound && (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                            <SearchNotFound searchQuery={filterName} />
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                  )}
+                </Table>
+              </TableContainer>
+            </Scrollbar>
+
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={userList.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={(e, page) => setPage(page)}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Card>
+        </Container>
+      </Page>
   );
 }
 
@@ -260,8 +260,8 @@ function descendingComparator(a, b, orderBy) {
 
 function getComparator(order, orderBy) {
   return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function applySortFilter(array, comparator, query) {

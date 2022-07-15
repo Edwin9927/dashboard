@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -19,11 +19,15 @@ import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-
 
 MenuNewForm.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
+  currentMenu: PropTypes.object,
 };
 
-export default function MenuNewForm({ isEdit, currentMenu }) {
+export default function MenuNewForm() {
   const navigate = useNavigate();
+  const data = useLocation();
+
+  const isEdit = data.state && data.state.isEdit;
+  const currentMenu = data.state && data.state.currentMenu;
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -33,12 +37,12 @@ export default function MenuNewForm({ isEdit, currentMenu }) {
   });
 
   const defaultValues = useMemo(
-    () => ({
-      nombre: currentMenu?.nombre || '',
-      tipo: currentMenu?.tipo || '',
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentMenu]
+      () => ({
+        nombre: currentMenu?.nombre || '',
+        tipo: currentMenu?.tipo || '',
+      }),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [currentMenu]
   );
 
   const methods = useForm({
@@ -69,6 +73,7 @@ export default function MenuNewForm({ isEdit, currentMenu }) {
   const onSubmit = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log(Promise.resolve());
       reset();
       enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
       navigate(PATH_DASHBOARD.user.list);
@@ -78,47 +83,48 @@ export default function MenuNewForm({ isEdit, currentMenu }) {
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        
-      >
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+
+        >
 
 
-        <Grid item xs={12} md={12}>
-          <Card sx={{ p: 3 }}>
-            <Box
-              sx={{
-                display: 'grid',
-                columnGap: 2,
-                rowGap: 3,
-                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-              }}
-            >
-              <RHFTextField name="nombre" label="Nombre" />
-              <RHFSelect name="tipo" label="tipo">
-                <option label='' />
-                <option value = "bebidas" label = "Bebidas"/>
-                <option value = "postres" label = "Postres"/>
-                <option value = "primeros" label = "Primeros"/>
-                <option value = "segundos" label = "Segundos"/>
-                <option value = "ensaladas" label = "Ensaladas"/>
-                <option value = "sopas" label = "Sopas"/>
-              </RHFSelect>
-            </Box>
+          <Grid item xs={12} md={12}>
+            <Card sx={{ p: 3 }}>
+              <Box
+                  sx={{
+                    display: 'grid',
+                    columnGap: 2,
+                    rowGap: 3,
+                    gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+                  }}
+              >
+                <RHFTextField name="nombre" label="Nombre" />
+                <RHFSelect name="tipo" label="tipo"
+                           defValue={isEdit ? currentMenu.tipo : ''}>
+                  <option label='' />
+                  <option value = "bebidas" label = "Bebidas"/>
+                  <option value = "postres" label = "Postres"/>
+                  <option value = "primeros" label = "Primeros"/>
+                  <option value = "segundos" label = "Segundos"/>
+                  <option value = "ensaladas" label = "Ensaladas"/>
+                  <option value = "sopas" label = "Sopas"/>
+                </RHFSelect>
+              </Box>
 
-            <Stack alignItems="flex" sx={{ mt: 3 }}>
-              <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Crear Menu' : 'Guardar Cambios'}
-              </LoadingButton>
-            </Stack>
-          </Card>
+              <Stack alignItems="flex" sx={{ mt: 3 }}>
+                <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+                  {!isEdit ? 'Crear Menu' : 'Guardar Cambios'}
+                </LoadingButton>
+              </Stack>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </FormProvider>
+      </FormProvider>
   );
 }

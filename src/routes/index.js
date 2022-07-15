@@ -75,7 +75,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/mesa/list" replace />, index: true},
             {path: 'list', element: <MesaList />},
-            {path: 'new', element: <MesaCreate />}
+            {path: 'new', element: <MesaCreate />},
+            {path: ':name/edit', element: <MesaCreate />}
           ],
         },
         {

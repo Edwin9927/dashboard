@@ -171,7 +171,7 @@ export default function MenuList() {
                                                 <TableCell align="left">{nombre}</TableCell>
                                                 <TableCell align="left">{tipo}</TableCell>
                                                 <TableCell align="right">
-                                                    <MenuMoreMenu onDelete={() => handleDeleteMenu(id)} nombre={nombre} />
+                                                    <MenuMoreMenu onDelete={() => handleDeleteMenu(id)} menu={row} />
                                                 </TableCell>
                                             </TableRow>
                                         );
@@ -237,4 +237,3 @@ function applySortFilter(array, comparator, query) {
     }
     return stabilizedThis.map((el) => el[0]);
 }
-  

@@ -36,18 +36,18 @@ export default function AppWelcome({ displayName }) {
           color: 'grey.800',
         }}
       >
-        <Typography gutterBottom variant="h4">
-          Hola Welcome back,
+      <Typography gutterBottom variant="h4">
+          Bienvenido de nuevo,
           <br /> {!displayName ? '...' : displayName}!
-        </Typography>
+      </Typography>
 
-        <Typography variant="body2" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
+      <Typography variant="body2" sx={{ pb: { xs: 3, xl: 5 }, maxWidth: 480, mx: 'auto' }}>
           If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-        </Typography>
+      </Typography>
 
-        <Button variant="contained" to="#" component={RouterLink}>
-          Go Now
-        </Button>
+      <Button variant="contained" to="#" component={RouterLink}>
+          Ir ahora
+      </Button>
       </CardContent>
 
       <SeoIllustration
