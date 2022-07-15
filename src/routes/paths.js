@@ -63,7 +63,6 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/mesa'),
     list: path(ROOTS_DASHBOARD, '/mesa/list'),
     newMesa: path(ROOTS_DASHBOARD, '/mesa/new'),
-    editMesaById: path(ROOTS_DASHBOARD, '/mesa/nombre/edit')
 
   },
   menu:{
