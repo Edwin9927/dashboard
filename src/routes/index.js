@@ -109,7 +109,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/venta/list" replace />, index: true},
             {path: 'list', element: <VentaList />},
-            {path: 'new', element: <VentaCreate />}
+            {path: 'new', element: <VentaCreate />},
+            {path: ':id/edit', element: <VentaCreate />}
           ],
         }
       ],
