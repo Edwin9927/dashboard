@@ -100,12 +100,12 @@ VentaNewForm.propTypes = {
           navigate(PATH_DASHBOARD.Venta.list);
         }
         else{
-          enqueueSnackbar(!isEdit ? "Error al crear un Venta!" : "Error al actualizar un elemento!");
+          return res.json();
         }
-        return res.json()
       })
         .then(resp => {
-          console.log(resp);
+          const property = Object.getOwnPropertyNames(resp);
+          enqueueSnackbar(resp[property[0]], {variant:'error'});
         });
      
     } catch (error) {
