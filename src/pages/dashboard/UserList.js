@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import getUsuario from '../../services/getUsuarios';
+import { getUsuario } from '../../services/getUsuarios';
+import { useSnackbar } from "notistack";
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -29,7 +30,7 @@ import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../../sections/@dashboard/user/list';
-
+import { eliminarUsuario } from "../../services/getUsuarios";
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -68,6 +69,7 @@ export default function UserList() {
   const { themeStretch } = useSettings();
 // ----------------------------------------------------------------------
   const [userList, setUserList] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     getUsuario()
         .then(res => setUserList(res));
@@ -122,7 +124,17 @@ export default function UserList() {
   };
 
   const handleDeleteUser = (userId) => {
-    const deleteUser = userList.filter((user) => user.id !== userId);
+    const token = window.localStorage.getItem('accessToken');
+    const resp = eliminarUsuario(token, userId);
+    resp.then(re => {
+      if(re.ok){
+        enqueueSnackbar("Usuario eliminado con éxito!");
+      }else{
+        enqueueSnackbar("Error al eliminar alimento!");
+      }
+    });
+    const deleteUser = UserList.filter((alimento) => alimento.idAlimento !== userId);
+    console.log(deleteUser);
     setSelected([]);
     setUserList(deleteUser);
   };

@@ -56,8 +56,15 @@ export default function MenuMoreMenu({ onDelete, menu }) {
             <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
             Eliminar
           </MenuItem>
-  
-          <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.menu.root}/${paramCase(menu.nombre)}/edit`}>
+
+            <MenuItem component={RouterLink}
+            to={
+            `${PATH_DASHBOARD.menu.root}/${paramCase(menu.nombre)}/edit`
+        }
+            state={{
+            isEdit: true,
+            currentMenu: menu
+        }}>
             <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
             Editar
           </MenuItem>
