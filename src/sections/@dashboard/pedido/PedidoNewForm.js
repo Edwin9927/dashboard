@@ -13,12 +13,13 @@ import { Box, Card, Grid, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
-import { AlimentoCard } from '../../@dashboard/pedido/cards';
+import PedidoCard from '../../@dashboard/pedido/cards/AlimentoCard';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
 
-import { getPedido } from '../../../services/getPedido'
+import { getPedido } from '../../../services/getPedido';
 
+import {obtenerAlimentosDisp} from '../../../services/alimentos';
 // ----------------------------------------------------------------------
 
 PedidoNewForm.propTypes = {
@@ -67,7 +68,7 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
   const values = watch();
 
   useEffect(() => {
-     // getPedido().then(res => set_AlimenttoCards(res));
+    obtenerAlimentosDisp().then(res => set_AlimenttoCards(res));
     if (isEdit && currentPedido) {
       reset(defaultValues);
     }
@@ -87,6 +88,8 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
       console.error(error);
     }
   };
+
+  console.log(_AlimentoCards);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -135,9 +138,9 @@ export default function PedidoNewForm({ isEdit, currentPedido }) {
                     gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(5, 1fr)' },
                   }}
               >
-                {_AlimentoCards.map((alimento) => (
-                    <AlimentoCard key={alimento.id} user={alimento} />
-                ))}
+                {_AlimentoCards.map((alimento) => 
+                    {return (<PedidoCard key={alimento.idAlimento} alimento={alimento} />);}
+                )}
               </Box>
             </Card>
 

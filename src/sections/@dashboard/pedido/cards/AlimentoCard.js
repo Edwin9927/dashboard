@@ -28,8 +28,8 @@ PedidoCard.propTypes = {
   pedido: PropTypes.object.isRequired,
 };
 
-export default function PedidoCard({ pedido }) {
-  const { idAlimento, idMenu, imagen, nombre, descripcion, precio, disponibilidad } = pedido;
+export default function PedidoCard( props ) {
+  const { idAlimento, idMenu, imagen, nombre, descripcion, precio, disponibilidad } = props.alimento;
 
   return (
     <Card sx={{ textAlign: 'center' }}>
@@ -50,7 +50,7 @@ export default function PedidoCard({ pedido }) {
         />
         <Avatar
           alt={nombre}
-          src={imagen}
+          src={`data:image/jpeg;base64, ${imagen}`}
           sx={{
             width: 64,
             height: 64,
