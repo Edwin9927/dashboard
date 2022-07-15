@@ -60,6 +60,7 @@ function AuthProvider({ children }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
+        const user = window.localStorage.getItem('user')
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
@@ -99,7 +100,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (usernameorEmail, password) => {
-    console.log("data = ",usernameorEmail, password);
+    //console.log("data = ",usernameorEmail, password);
 
     const url = "http://localhost:8080/api/auth";
     
@@ -107,7 +108,7 @@ function AuthProvider({ children }) {
 
     const response = await axios.post(url+"/authenticate", logindata);
     const id = response.data.id;
-    console.log(id);
+    //console.log(id);
 
     
     const data = await fetch("http://localhost:8080/api/usuarios/"+id);
@@ -124,7 +125,7 @@ function AuthProvider({ children }) {
     console.log(user);
     console.groupEnd();
 
-    setSession(token);
+    setSession(accessToken);
     dispatch({
       type: 'LOGIN',
       payload: {
