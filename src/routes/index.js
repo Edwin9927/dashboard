@@ -75,7 +75,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/mesa/list" replace />, index: true},
             {path: 'list', element: <MesaList />},
-            {path: 'new', element: <MesaCreate />}
+            {path: 'new', element: <MesaCreate />},
+            {path: ':name/edit', element: <MesaCreate />}
           ],
         },
         {
@@ -83,7 +84,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/menu/list" replace />, index: true},
             {path: 'list', element: <MenuList />},
-            {path: 'new', element: <MenuCreate />}
+            {path: 'new', element: <MenuCreate />},
+            {path: ':name/edit', element: <MenuCreate />}
           ],
         },
         {
@@ -92,7 +94,7 @@ export default function Router() {
             {element: <Navigate to="/dashboard/alimento/list" replace />, index: true},
             {path: 'list', element: <AlimentoList />},
             {path: 'new', element: <AlimentoCreate />},
-            {path: ':name/edit', element: <AlimentoCreate />}
+            {path: ':id/edit', element: <AlimentoCreate />}
           ],
         },
         {
@@ -100,7 +102,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/pedido/list" replace />, index: true},
             {path: 'list', element: <PedidoList />},
-            {path: 'new', element: <PedidoCreate />}
+            {path: 'new', element: <PedidoCreate />},
+            {path: ':name/edit', element: <PedidoCreate />}
           ],
         },
         {
@@ -108,7 +111,8 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/venta/list" replace />, index: true},
             {path: 'list', element: <VentaList />},
-            {path: 'new', element: <VentaCreate />}
+            {path: 'new', element: <VentaCreate />},
+            {path: ':id/edit', element: <VentaCreate />}
           ],
         }
       ],

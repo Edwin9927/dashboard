@@ -14,7 +14,7 @@ import MenuPopover from '../../../../components/MenuPopover';
 
 VentaMenu.propTypes = {
     onDelete: PropTypes.func,
-    nombre: PropTypes.string,
+    id: PropTypes.string,
 };
 
 export default function VentaMenu({ onDelete, venta }) {
@@ -32,6 +32,7 @@ export default function VentaMenu({ onDelete, venta }) {
         width: 20,
         height: 20,
       };
+      console.log("Venta",venta.idVenta);
       return (
         <>
           <IconButton onClick={handleOpen}>
@@ -57,7 +58,9 @@ export default function VentaMenu({ onDelete, venta }) {
             </MenuItem>
     
 {/*             <MenuItem component={RouterLink} 
-              to={`${PATH_DASHBOARD.venta.root}/${paramCase(venta.Id)}/edit`}
+              to={
+                `${PATH_DASHBOARD.venta.root}/${paramCase(venta.idVenta)}/edit`
+              }
               state={{
                   isEdit: true, 
                   currentVenta: venta

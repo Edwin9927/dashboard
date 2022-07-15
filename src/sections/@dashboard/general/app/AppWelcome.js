@@ -37,7 +37,7 @@ export default function AppWelcome({ displayName }) {
         }}
       >
         <Typography gutterBottom variant="h4">
-          Hola Welcome back,
+            Bienvenido de nuevo,
           <br /> {!displayName ? '...' : displayName}!
         </Typography>
 
@@ -46,7 +46,7 @@ export default function AppWelcome({ displayName }) {
         </Typography>
 
         <Button variant="contained" to="#" component={RouterLink}>
-          Go Now
+          Ir ahora
         </Button>
       </CardContent>
 
