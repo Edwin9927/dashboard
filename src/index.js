@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 */
+// i18n
+import './locales/i18n';
 
 // highlight
 import './utils/highlight';

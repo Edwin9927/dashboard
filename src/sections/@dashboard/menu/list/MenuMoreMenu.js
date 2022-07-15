@@ -17,7 +17,7 @@ MenuMoreMenu.propTypes = {
     nombre: PropTypes.string,
 };
 
-export default function MenuMoreMenu({ onDelete, menu }) {
+export default function MenuMoreMenu({ onDelete, nombre }) {
     const [open, setOpen] = useState(null);
   
     const handleOpen = (event) => {
@@ -54,19 +54,12 @@ export default function MenuMoreMenu({ onDelete, menu }) {
         >
           <MenuItem onClick={onDelete} sx={{ color: 'error.main' }}>
             <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
-            Borrar
+            Delete
           </MenuItem>
   
-          <MenuItem component={RouterLink}
-            to={
-              `${PATH_DASHBOARD.menu.root}/${paramCase(menu.nombre)}/edit`
-                }
-            state={{
-                isEdit: true,
-                currentMenu: menu
-            }}>
+          <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.menu.root}/${paramCase(nombre)}/edit`}>
             <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
-            Editar
+            Edit
           </MenuItem>
         </MenuPopover>
       </>
