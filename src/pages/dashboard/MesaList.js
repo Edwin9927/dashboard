@@ -3,6 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import getMesa from '../../services/getMesa';
 // @mui
 import { useTheme } from '@mui/material/styles';
+import { useSnackbar } from "notistack";
+
 import {
     Card,
     Table,
@@ -30,6 +32,7 @@ import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { MesaListHead, MesaListToolbar, MesaMenu } from '../../sections/@dashboard/mesa/list';
+import { eliminarMesa } from '../../services/mesas';
 
 const TABLE_HEAD = [
     { id: 'nombre', label: 'Nombre', alignRight: false },
@@ -44,10 +47,18 @@ export default function MesaList() {
     const theme = useTheme();
     const { themeStretch } = useSettings();
     const [MesaList, setMesaList] = useState([]);
+    const [cantMesas, setCantMesas] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
+
+
     useEffect(() => {
         getMesa()
-            .then(res => setMesaList(res));
-    }, []);
+            .then(res => {
+                setMesaList(res)
+                setCantMesas(res.length)
+            });
+    }, [cantMesas]);
+
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -96,7 +107,16 @@ export default function MesaList() {
     };
 
     const handleDeleteMesa = (mesaId) => {
-        const deleteMesa = MesaList.filter((mesa) => mesa !== mesaId);
+        const token = window.localStorage.getItem('accessToken');
+        const resp = eliminarMesa(token, mesaId);
+        resp.then(re => {
+            if (re.ok) {
+                enqueueSnackbar("Alimento eliminado con éxito!");
+            } else {
+                enqueueSnackbar("Error al eliminar la mesa!",{ variant: 'error' });
+            }
+        });
+        const deleteMesa = MesaList.filter((mesa) => mesa.idMesa !== mesaId);
         setSelected([]);
         setMesaList(deleteMesa);
     };
@@ -155,12 +175,12 @@ export default function MesaList() {
                                 />
                                 <TableBody>
                                     {filteredMesa.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        const { id, nombre, capacidad, estado, tipo } = row;
+                                        const { idMesa, nombre, capacidad, estado, tipo } = row;
                                         const isItemSelected = selected.indexOf(nombre) !== -1;
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={idMesa}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
@@ -182,7 +202,7 @@ export default function MesaList() {
                                                 </TableCell>
 
                                                 <TableCell align="right">
-                                                    <MesaMenu onDelete={() => handleDeleteMesa(id)} mesa={row} />
+                                                    <MesaMenu onDelete={() => handleDeleteMesa(idMesa)} mesa={row} />
                                                 </TableCell>
                                             </TableRow>
                                         );
@@ -222,30 +242,29 @@ export default function MesaList() {
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
-      return -1;
+        return -1;
     }
     if (b[orderBy] > a[orderBy]) {
-      return 1;
+        return 1;
     }
     return 0;
-  }
-  
-  function getComparator(order, orderBy) {
+}
+
+function getComparator(order, orderBy) {
     return order === 'desc'
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-  
-  function applySortFilter(array, comparator, query) {
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function applySortFilter(array, comparator, query) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        return a[1] - b[1];
     });
     if (query) {
-      return array.filter((_mesa) => _mesa.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return array.filter((_mesa) => _mesa.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
     return stabilizedThis.map((el) => el[0]);
-  }
-  
+}
