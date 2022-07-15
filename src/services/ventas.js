@@ -1,4 +1,4 @@
-const url = "http://localhost:8080/api/Ventas";
+const url = "http://localhost:8080/api/venta";
 
 const ingresarVenta = async (body, token) =>{
     const data = await fetch(url, {
