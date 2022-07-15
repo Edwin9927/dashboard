@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import getVenta from "../../services/getVenta";
-
+import { useSnackbar } from "notistack";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -34,9 +34,13 @@ import {
   VentaMenu,
 } from "../../sections/@dashboard/venta/list";
 
+import { eliminarVenta } from '../../services/ventas';
+
+// ----------------------------------------------------------------------
+
 const TABLE_HEAD = [
-  { id: "idUsuario", label: "Menu", alignRight: false },
-  { id: "idPedido", label: "Nombre", alignRight: false },
+  { id: "idUsuario", label: "idUsuario", alignRight: false },
+  { id: "idPedido", label: "idPedido", alignRight: false },
   { id: "formaDePago", label: "Forma de Pago", alignRight: false },
   { id: "fecha", label: "Fecha", alignRight: false },
   { id: "hora", label: "Hora", alignRight: false },
@@ -50,6 +54,7 @@ export default function VentaList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
   const [VentaList, setVentaList] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getVenta().then((res) => setVentaList(res));
@@ -105,7 +110,16 @@ export default function VentaList() {
   };
 
   const handleDeleteVenta = (ventaId) => {
-    const deleteVenta = VentaList.filter((venta) => venta !== ventaId);
+    const token = window.localStorage.getItem('accessToken');
+    const resp = eliminarVenta(token, ventaId);
+    resp.then(re => {
+      if(re.ok){
+        enqueueSnackbar("Venta eliminada con éxito!");
+      }else{
+        enqueueSnackbar("Error al eliminar venta!");
+      }
+    });
+    const deleteVenta = VentaList.filter((venta) => venta.idVenta !== ventaId);
     setSelected([]);
     setVentaList(deleteVenta);
   };

@@ -17,6 +17,7 @@ import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-
 import React from 'react';
 import getPedido from "../../../services/getPedido";
 import getUsuarios from "../../../services/getUsuarios";
+import {ingresarVenta, actualizarVenta} from '../../../services/ventas'
 
 
 // ----------------------------------------------------------------------
@@ -44,6 +45,7 @@ VentaNewForm.propTypes = {
       calificacion: Yup.string().required('Campo requerido'),
       propina: Yup.number().required('Campo requerido'),
     });
+    
     const defaultValues = useMemo(
         () => ({
           idUsuario: currentVenta?.idUsuario || '',
@@ -83,16 +85,33 @@ VentaNewForm.propTypes = {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [isEdit, currentVenta]);
 
-      const onSubmit = async () => {
-        try {
-          //await new Promise((resolve) => setTimeout(resolve, 500));
+      const onSubmit = async (values) => {
+
+        const token = window.localStorage.getItem('accessToken');
+
+      try {
+      const respuesta = !isEdit ? ingresarVenta(values, token) 
+        : actualizarVenta(values,token, currentVenta.idVenta);
+
+      respuesta.then((res) => {
+        if(res.ok){
+          enqueueSnackbar(!isEdit ? "Venta creado satisfactoriamente!" : "Actualización exitosa!");
           reset();
-          enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
-          navigate(PATH_DASHBOARD.venta.list);
-        } catch (error) {
-          console.error(error);
+          navigate(PATH_DASHBOARD.Venta.list);
         }
-      };
+        else{
+          enqueueSnackbar(!isEdit ? "Error al crear un Venta!" : "Error al actualizar un elemento!");
+        }
+        return res.json()
+      })
+        .then(resp => {
+          console.log(resp);
+        });
+     
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
       return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
