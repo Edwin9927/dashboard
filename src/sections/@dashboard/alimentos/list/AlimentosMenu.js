@@ -33,7 +33,6 @@ export default function AlimentosMenu({ onDelete, alimento }) {
     width: 20,
     height: 20,
   };
-
   return (
     <>
       <IconButton onClick={handleOpen}>

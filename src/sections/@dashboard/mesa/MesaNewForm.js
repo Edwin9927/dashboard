@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,8 +22,12 @@ MesaNewForm.propTypes = {
   currentMesa: PropTypes.object,
 };
 
-export default function MesaNewForm({ isEdit, currentMesa }) {
+export default function MesaNewForm() {
   const navigate = useNavigate();
+  const data = useLocation();
+
+  const isEdit = data.state && data.state.isEdit;
+  const currentMesa = data.state && data.state.currentMesa;
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -73,7 +77,7 @@ export default function MesaNewForm({ isEdit, currentMesa }) {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
-      navigate(PATH_DASHBOARD.user.list);
+      navigate(PATH_DASHBOARD.mesa.list);
     } catch (error) {
       console.error(error);
     }
