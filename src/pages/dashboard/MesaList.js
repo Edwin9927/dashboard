@@ -130,7 +130,7 @@ export default function MesaList() {
                             to={PATH_DASHBOARD.mesa.newMesa}
                             startIcon={<Iconify icon={'eva:plus-fill'} />}
                         >
-                            New Mesa
+                            Nueva Mesa
                         </Button>
                     }
                 />

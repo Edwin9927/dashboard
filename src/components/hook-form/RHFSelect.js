@@ -18,7 +18,7 @@ RHFSelect.propTypes = {
 export default function RHFSelect({ name, children, defValue, ...other }) {
   const { control } = useFormContext();
   const [value, setValue] = React.useState(defValue);
-
+  console.log(value);
   return (
     <Controller
       name={name}

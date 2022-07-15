@@ -32,7 +32,6 @@ export default function VentaMenu({ onDelete, venta }) {
         width: 20,
         height: 20,
       };
-      console.log("Venta",venta.idVenta);
       return (
         <>
           <IconButton onClick={handleOpen}>
@@ -57,9 +56,9 @@ export default function VentaMenu({ onDelete, venta }) {
               Eliminar
             </MenuItem>
     
-{/*             <MenuItem component={RouterLink} 
+           <MenuItem component={RouterLink} 
               to={
-                `${PATH_DASHBOARD.venta.root}/${paramCase(venta.idVenta)}/edit`
+                `${PATH_DASHBOARD.venta.root}/${paramCase(venta.idVenta.toString())}/edit`
               }
               state={{
                   isEdit: true, 
@@ -67,7 +66,7 @@ export default function VentaMenu({ onDelete, venta }) {
                 }}>
               <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
               Editar
-            </MenuItem> */}
+            </MenuItem>
           </MenuPopover>
         </>
       );

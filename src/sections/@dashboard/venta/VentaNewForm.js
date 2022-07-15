@@ -119,7 +119,7 @@ VentaNewForm.propTypes = {
                   <option label="Seleccione un usuario"/>
                 {
                   usuario.map((item)=>{
-                      return (<option value={item.id} label={item.nombre}/>);
+                      return (<option value={item.idUsuario} label={item.nombre}/>);
                   })
                 }
               </RHFSelect>
@@ -129,19 +129,25 @@ VentaNewForm.propTypes = {
                 <option label="Seleccione un pedido"/>
               {
                 pedido.map((item)=>{
-                    return (<option value={item.id} label={item.idPedido}/>);
+                    return (<option value={item.idPedido} label={item.idPedido}/>);
                 })
               }
                 
               </RHFSelect>
-              <RHFSelect name="formaDePago" label="Forma de Pago" placeholder="Forma de Pago">
+              <RHFSelect name="formaDePago" 
+                label="Forma de Pago" 
+                placeholder="Forma de Pago"
+                defValue={isEdit ? currentVenta.formaDePago : ''}>
                 <option label='' />
                 <option value="efectivo" label='efectivo' />
                 <option value="debito" label='debito' />
                 <option value="credito" label='credito' />
                 <option value="transferencia" label='transferencia' />
               </RHFSelect>
-              <RHFSelect name="calificacion" label="Calificacion" placeholder="Calificacion">
+              <RHFSelect name="calificacion" 
+              label="Calificacion" 
+              placeholder="Calificacion"
+              defValue={isEdit ? currentVenta.calificacion : ''}>
                 <option label='' />
                 <option value="excelente" label='excelente' />
                 <option value="muy_bueno" label='muy bueno' />

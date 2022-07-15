@@ -144,7 +144,7 @@ export default function VentaList() {
               to={PATH_DASHBOARD.venta.newVenta}
               startIcon={<Iconify icon={"eva:plus-fill"} />}
             >
-              New Venta
+              Nueva Venta
             </Button>
           }
         />

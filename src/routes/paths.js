@@ -85,7 +85,7 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/venta'),
     list: path(ROOTS_DASHBOARD, '/venta/list'),
     newVenta : path(ROOTS_DASHBOARD, '/venta/new'),
-    editVentaById: path(ROOTS_DASHBOARD, '/venta/nombre/edit')
+    editVentaById: path(ROOTS_DASHBOARD, '/venta/id/edit')
   },
 
 

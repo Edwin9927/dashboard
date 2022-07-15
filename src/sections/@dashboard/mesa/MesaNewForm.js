@@ -40,8 +40,8 @@ export default function MesaNewForm() {
   const defaultValues = useMemo(
     () => ({
       nombre: currentMesa?.nombre || '',
-      capacidad: currentMesa?.capacidad || '',
-      estado: currentMesa?.estado || '',
+      capacidad: currentMesa?.capacidad || 0,
+      estado: currentMesa?.estado || false,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentMesa]
@@ -82,7 +82,8 @@ export default function MesaNewForm() {
       console.error(error);
     }
   };
-
+  console.log(currentMesa);
+  console.log(values);
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid
@@ -93,8 +94,6 @@ export default function MesaNewForm() {
         justifyContent="center"
         
       >
-
-
         <Grid item xs={12} md={12}>
           <Card sx={{ p: 3 }}>
             <Box
@@ -106,7 +105,8 @@ export default function MesaNewForm() {
               }}
             >
               <RHFTextField name="nombre" label="Nombre" />
-              <RHFSelect name="capacidad" label="Capacidad">
+              <RHFSelect name="capacidad" label="Capacidad"
+                defValue={ isEdit ? currentMesa.capacidad : 0}>
                 <option label='' />
                 <option value="1" label='1' />
                 <option value="2" label='2' />
@@ -119,10 +119,11 @@ export default function MesaNewForm() {
                 <option value="9" label='9' />
                 <option value="10" label='10' />
               </RHFSelect>
-              <RHFSelect name="estado" label="Estado">
+              <RHFSelect name="estado" label="Estado"
+              defValue={ isEdit ? currentMesa.estado : false}>
                 <option label='' />
-                <option value = "0" label = "No disponible"/>
-                <option value = "1" label = "Disponible"/>
+                <option value = {false} label = "No disponible"/>
+                <option value = {true} label = "Disponible"/>
               </RHFSelect>
             </Box>
 

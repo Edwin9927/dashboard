@@ -102,24 +102,6 @@ const navConfig = [
       },
     ],
   },
-
-  // APP
-  // ----------------------------------------------------------------------
-  {
-    subheader: 'Calificaciones',
-    items: [
-      {
-        title: 'mail',
-        path: PATH_DASHBOARD.mail.root,
-        icon: ICONS.mail,
-        info: (
-          <Label variant="outlined" color="error">
-            +32
-          </Label>
-        ),
-      },
-    ],
-  },
 ];
 
 export default navConfig;
