@@ -182,7 +182,7 @@ export default function MesaList() {
                                                 </TableCell>
 
                                                 <TableCell align="right">
-                                                    <MesaMenu onDelete={() => handleDeleteMesa(id)} mesa={row} />
+                                                    <MesaMenu onDelete={() => handleDeleteMesa(id)} nombre={nombre} />
                                                 </TableCell>
                                             </TableRow>
                                         );
