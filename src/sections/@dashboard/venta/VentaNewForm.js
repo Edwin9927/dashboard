@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,6 +14,10 @@ import { Box, Card, Grid, Stack } from '@mui/material';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
+import React from 'react';
+import getPedido from "../../../services/getPedido";
+import getUsuarios from "../../../services/getUsuarios";
+
 
 // ----------------------------------------------------------------------
 
@@ -22,10 +26,16 @@ VentaNewForm.propTypes = {
     currentVenta: PropTypes.object,
   };
 
-  export default function VentaNewForm({ isEdit, currentVenta }) {
+  export default function VentaNewForm() {
     const navigate = useNavigate();
-  
+    const data = useLocation();
+    
+    const isEdit = data.state && data.state.isEdit;
+    const currentVenta = data.state && data.state.currentVenta;
+
     const { enqueueSnackbar } = useSnackbar();
+    const [ pedido, setPedido ] = React.useState([]);
+    const [ usuario, setUsuarios ] = React.useState([]);
   
     const NewVentaSchema = Yup.object().shape({
       idUsuario: Yup.string().required('Campo requerido'),
@@ -62,6 +72,8 @@ VentaNewForm.propTypes = {
       const values = watch();
     
       useEffect(() => {
+        getPedido().then(res => setPedido(res));
+        getUsuarios().then(res => setUsuarios(res));
         if (isEdit && currentVenta) {
           reset(defaultValues);
         }
@@ -73,7 +85,7 @@ VentaNewForm.propTypes = {
 
       const onSubmit = async () => {
         try {
-          await new Promise((resolve) => setTimeout(resolve, 500));
+          //await new Promise((resolve) => setTimeout(resolve, 500));
           reset();
           enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
           navigate(PATH_DASHBOARD.venta.list);
@@ -101,11 +113,26 @@ VentaNewForm.propTypes = {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >              
-              <RHFSelect name="idUsuario" label="Cliente" placeholder="Cliente">
-                <option label='' />
+              <RHFSelect name="idUsuario"
+                placeholder="Cliente"
+                defValue={ isEdit ? currentVenta.idUsuario : 0}>
+                  <option label="Seleccione un usuario"/>
+                {
+                  usuario.map((item)=>{
+                      return (<option value={item.id} label={item.nombre}/>);
+                  })
+                }
               </RHFSelect>
-              <RHFSelect name="idPedido" label="Pedido" placeholder="Pedido">
-                <option label='' />
+              <RHFSelect name="idPedido"
+                placeholder="Pedido"
+                defValue={ isEdit ? currentVenta.idPedido : 0}>
+                <option label="Seleccione un pedido"/>
+              {
+                pedido.map((item)=>{
+                    return (<option value={item.id} label={item.idPedido}/>);
+                })
+              }
+                
               </RHFSelect>
               <RHFSelect name="formaDePago" label="Forma de Pago" placeholder="Forma de Pago">
                 <option label='' />

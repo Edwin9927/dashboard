@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,8 +22,12 @@ UserNewForm.propTypes = {
   currentUser: PropTypes.object,
 };
 
-export default function UserNewForm({ isEdit, currentUser }) {
+export default function UserNewForm() {
   const navigate = useNavigate();
+  const data = useLocation();
+
+  const isEdit = data.state && data.state.isEdit;
+  const currentUser = data.state && data.state.currentUser;
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -109,7 +113,6 @@ export default function UserNewForm({ isEdit, currentUser }) {
               <RHFTextField name="apellido" label="Apellido" />
               <RHFTextField name="email" label="Correo electrónico" />
               <RHFTextField name="cedula" label="Cedula" />
-              
               <RHFSelect name="role" label="Rol" placeholder="Rol">
                 <option label='' />
                 <option value="ROLE_ADMIN" label='Administrador' />

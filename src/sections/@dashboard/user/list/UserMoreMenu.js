@@ -17,7 +17,7 @@ UserMoreMenu.propTypes = {
   userName: PropTypes.string,
 };
 
-export default function UserMoreMenu({ onDelete, userName }) {
+export default function UserMoreMenu({ onDelete, user }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -58,7 +58,14 @@ export default function UserMoreMenu({ onDelete, userName }) {
           Eliminar
         </MenuItem>
 
-        <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.user.root}/${paramCase(userName)}/edit`}>
+        <MenuItem component={RouterLink}
+          to={
+            `${PATH_DASHBOARD.user.root}/${paramCase(user.nombre)}/edit`
+          }
+        state={{
+            isEdit: true,
+            currentUser: user
+        }}>
           <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
           Editar
         </MenuItem>
