@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import getAlimento from '../../services/getAlimento';
+import { useSnackbar } from "notistack";
 
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -31,7 +32,7 @@ import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { AlimentosListHead, AlimentosListToolbar, AlimentosMenu } from '../../sections/@dashboard/alimentos/list';
-
+import { eliminarAlimento } from '../../services/alimentos';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -53,6 +54,7 @@ export default function AlimentoList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
   const [AlimentoList, setAlimentoList] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
 
   useEffect(() => {
@@ -108,7 +110,17 @@ export default function AlimentoList() {
   };
 
   const handleDeleteAlimento = (alimentoId) => {
-    const deleteAlimento = AlimentoList.filter((alimento) => alimento !== alimentoId);
+    const token = window.localStorage.getItem('accessToken');
+    const resp = eliminarAlimento(token, alimentoId);
+    resp.then(re => {
+      if(re.ok){
+        enqueueSnackbar("Alimento eliminado con éxito!");
+      }else{
+        enqueueSnackbar("Error al eliminar alimento!");
+      }
+    });
+    const deleteAlimento = AlimentoList.filter((alimento) => alimento.idAlimento !== alimentoId);
+    console.log(deleteAlimento);
     setSelected([]);
     setAlimentoList(deleteAlimento);
   };
@@ -169,12 +181,12 @@ export default function AlimentoList() {
                 />
                 <TableBody>
                   {filteredAlimentos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, idMenu, nombre, descripcion, disponibilidad, precio, tipo } = row;
+                    const { idAlimento, idMenu, nombre, descripcion, disponibilidad, precio, tipo } = row;
                     const isItemSelected = selected.indexOf(nombre) !== -1;
                     return (
                       <TableRow
                         hover
-                        key={id}
+                        key={idAlimento}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
@@ -198,7 +210,7 @@ export default function AlimentoList() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <AlimentosMenu onDelete={() => handleDeleteAlimento(id)} alimento={row} />
+                          <AlimentosMenu onDelete={() => handleDeleteAlimento(idAlimento)} alimento={row} />
                         </TableCell>
                       </TableRow>
                     );

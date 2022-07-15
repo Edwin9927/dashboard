@@ -30,7 +30,7 @@ import {
 } from "../../../components/hook-form";
 import getMenus from "../../../services/menu";
 import React from 'react';
-import ingresarAlimento from '../../../services/alimentos'
+import {ingresarAlimento, actualizarAlimento} from '../../../services/alimentos'
 
 
 AlimentosForm.propTypes = {
@@ -46,11 +46,11 @@ export default function AlimentosForm() {
   const currentAlimento = data.state && data.state.currentAlimento;
 
   const { enqueueSnackbar } = useSnackbar();
-  const [ menu, setMenu ] = React.useState([]);
+  const [menu, setMenu] = React.useState([]);
 
   //constante para validar el esquema
   const NewAlimentoSchema = Yup.object().shape({
-    menu: Yup.number().required("Menú es requerido"),
+    idMenu: Yup.number().required("Menú es requerido"),
     imagen: Yup.mixed().test(
       "required",
       "Imagen es requerida",
@@ -59,18 +59,20 @@ export default function AlimentosForm() {
     nombre: Yup.string().required("Nombre es requerido"),
     descripcion: Yup.string().required("Descripcion es requerida"),
     precio: Yup.number().required("Precio es requerido"),
-    disponibilidad: Yup.string().required("Disponibilidad es requerida"),
+    disponibilidad: Yup.boolean().required("Disponibilidad es requerida"),
+    tipo: Yup.string().required("Disponibilidad es requerida"),
   });
 
   //constante para inicializar los valores por defecto
   const defaultValues = useMemo(
     () => ({
-      menu: currentAlimento?.menu || "",
+      idMenu: currentAlimento?.idMenu || "",
       imagen: currentAlimento?.imagen || "",
       nombre: currentAlimento?.nombre || "",
       descripcion: currentAlimento?.descripcion || "",
       precio: currentAlimento?.precio || "",
-      disponibilidad: currentAlimento?.disponibilidad || "",
+      disponibilidad: currentAlimento?.disponibilidad || false,
+      tipo: currentAlimento?.tipo || "",
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentAlimento]
@@ -104,17 +106,39 @@ export default function AlimentosForm() {
   }, [isEdit, currentAlimento]);
 
 
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+
+
   const onSubmit = async (values) => {
-    /*const token = window.localStorage.getItem('token');
-    const {accessToken, user} = token; */
-    console.log(values);   
+    const token = window.localStorage.getItem('accessToken');
+
+    let resp = await toBase64(values.imagen);
+    values.imagen = resp.replace("data:image/jpeg;base64,","");
+    console.log(values);
     try {
-      //const respuesta = !isEdit ? ingresarAlimento(values) : '';
-      
-      
-      reset();
-      enqueueSnackbar(!isEdit ? "Alimento creado satisfactoriamente!" : "Actualización exitosa!");
-      navigate(PATH_DASHBOARD.alimento.list);
+      const respuesta = !isEdit ? ingresarAlimento(values, token) 
+        : actualizarAlimento(values,token, currentAlimento.idAlimento);
+
+      respuesta.then((res) => {
+        if(res.ok){
+          enqueueSnackbar(!isEdit ? "Alimento creado satisfactoriamente!" : "Actualización exitosa!");
+          reset();
+          navigate(PATH_DASHBOARD.alimento.list);
+        }
+        else{
+          enqueueSnackbar(!isEdit ? "Error al crear un alimento!" : "Error al actualizar un elemento!");
+        }
+        return res.json()
+      })
+        .then(resp => {
+          console.log(resp);
+        });
+     
     } catch (error) {
       console.error(error);
     }
@@ -136,7 +160,7 @@ export default function AlimentosForm() {
     [setValue]
   );
 
-  console.log(values);
+
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -194,28 +218,37 @@ export default function AlimentosForm() {
                   },
                 }}
               >
-                <RHFSelect name="menu"
+                <RHFSelect name="idMenu"
                   placeholder="Menú"
-                  defValue={ isEdit ? currentAlimento.idMenu : 0}>
-                  <option label="--- Seleccione un menú ---"/>
-                {
-                  menu.map((item)=>{
-                      return (<option value={item.id} label={item.nombre}/>);
-                  })
-                }
+                  defValue={isEdit ? currentAlimento.idMenu : 0}>
+                  <option label="--- Seleccione un menú ---" />
+                  {
+                    menu.map((item) => {
+                      return (<option value={item.id} label={item.nombre} />);
+                    })
+                  }
                 </RHFSelect>
                 <RHFTextField name="nombre" label="nombre" />
                 <RHFTextField name="descripcion" label="descripcion" />
                 <RHFTextField name="precio" label="precio" />
                 <RHFSelect name="disponibilidad"
-                 placeholder="disponibilidad" label="disponibilidad"
-                 defValue={isEdit ? (currentAlimento.disponibilidad ? 1 : 0) : 0}
-                  >
-                  <option label="--- Seleccione la disponibilidad ---"/>
-                  <option value = "0" label = "No"/>
-                  <option value = "1" label = "Si"/>
+                  placeholder="disponibilidad" label="disponibilidad"
+                  defValue={isEdit ? (currentAlimento.disponibilidad ? true : false) : 0}
+                >
+                  <option label="--- Seleccione la disponibilidad ---" />
+                  <option value={false} label="No" />
+                  <option value={true} label="Si" />
                 </RHFSelect>
-
+                <RHFSelect name="tipo" label="tipo"
+                  defValue={isEdit ? currentAlimento.tipo : ''}>
+                  <option label='' />
+                  <option value="bebidas" label="Bebidas" />
+                  <option value="postres" label="Postres" />
+                  <option value="primeros" label="Primeros" />
+                  <option value="segundos" label="Segundos" />
+                  <option value="ensaladas" label="Ensaladas" />
+                  <option value="sopas" label="Sopas" />
+                </RHFSelect>
               </Box>
 
               <Stack alignItems="flex-end" sx={{ mt: 3 }}>
