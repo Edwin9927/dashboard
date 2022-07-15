@@ -51,8 +51,7 @@ export const PATH_DASHBOARD = {
     cards: path(ROOTS_DASHBOARD, '/user/cards'),
     list: path(ROOTS_DASHBOARD, '/user/list'),
     newUser: path(ROOTS_DASHBOARD, '/user/new'),
-    editById: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
-    account: path(ROOTS_DASHBOARD, '/user/account')
+    editById: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`)
   },
   alimento:{
     root: path(ROOTS_DASHBOARD, '/alimento'),
@@ -64,11 +63,13 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/mesa'),
     list: path(ROOTS_DASHBOARD, '/mesa/list'),
     newMesa: path(ROOTS_DASHBOARD, '/mesa/new'),
+
   },
   menu:{
     root: path(ROOTS_DASHBOARD, '/menu'),
     list: path(ROOTS_DASHBOARD, '/menu/list'),
     newMenu: path(ROOTS_DASHBOARD, '/menu/new'),
+    editMenu: path(ROOTS_DASHBOARD,'/menu/id/edit'),
   },
   pedido:{
     root: path(ROOTS_DASHBOARD, '/pedido'),
