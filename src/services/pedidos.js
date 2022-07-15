@@ -1,6 +1,6 @@
-const url = "http://localhost:8080/api/alimentos";
+const url = "http://localhost:8080/api/pedidos";
 
-const ingresarAlimento = async (body, token) =>{
+const ingresarPedido = async (body, token) =>{
     const data = await fetch(url, {
         method: 'POST',
         headers: {
@@ -12,7 +12,7 @@ const ingresarAlimento = async (body, token) =>{
     return data;
 }
 
-const actualizarAlimento = async (body, token, id) =>{
+const actualizarPedido = async (body, token, id) =>{
     const data = await fetch(url+"/"+id, {
         method: 'PUT',
         headers: {
@@ -24,7 +24,7 @@ const actualizarAlimento = async (body, token, id) =>{
     return data;
 }
 
-const eliminarAlimento = async (token, id) => {
+const eliminarPedido = async (token, id) => {
     const data = await fetch(url + "/" + id, {
         method: 'DELETE',
         headers: {
@@ -37,15 +37,8 @@ const eliminarAlimento = async (token, id) => {
     return data;
 }
 
-const obtenerAlimentosDisp = async () =>{
-    const data = await fetch(url);
-    const resp = await data.json();
-    return resp;
-}
-
 export {
-    ingresarAlimento, 
-    actualizarAlimento, 
-    eliminarAlimento,
-    obtenerAlimentosDisp,
+    ingresarPedido, 
+    actualizarPedido, 
+    eliminarPedido
 };
