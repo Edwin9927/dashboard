@@ -58,8 +58,8 @@ export default function VentaList() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState("id");
-  const [filterId, setFilterId] = useState("");
+  const [orderBy, setOrderBy] = useState("name");
+  const [filterName, setFilterName] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (property) => {
@@ -70,17 +70,17 @@ export default function VentaList() {
 
   const handleSelectAllClick = (checked) => {
     if (checked) {
-      const newSelecteds = VentaList.map((n) => n.id);
+      const newSelecteds = VentaList.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
-  const handleClick = (id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleClick = (name) => {
+    const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -99,8 +99,8 @@ export default function VentaList() {
     setPage(0);
   };
 
-  const handleFilterById = (filterId) => {
-    setFilterId(filterId);
+  const handleFilterByName = (filterName) => {
+    setFilterName(filterName);
     setPage(0);
   };
 
@@ -122,10 +122,10 @@ export default function VentaList() {
   const filteredVenta = applySortFilter(
     VentaList,
     getComparator(order, orderBy),
-    filterId
+    filterName
   );
 
-  const isNotFound = !filteredVenta.length && Boolean(filterId);
+  const isNotFound = !filteredVenta.length && Boolean(filterName);
 
   return (
     <Page title="Venta: List">
@@ -151,8 +151,8 @@ export default function VentaList() {
         <Card>
           <VentaListToolbar
             numSelected={selected.length}
-            filterId={filterId}
-            onFilterId={handleFilterById}
+            filterName={filterName}
+            onFilterName={handleFilterByName}
             onDeleteVenta={() => handleDeleteMultiVenta(selected)}
           />
           <Scrollbar>
@@ -207,7 +207,7 @@ export default function VentaList() {
                           <TableCell align="left">{propina}</TableCell>
                           <TableCell align="left">{total}</TableCell>
                           <TableCell align="right">
-                            <VentaMenu onDelete={() => handleDeleteVenta(id) } venta={row}/>
+                            <VentaMenu onDelete={() => handleDeleteVenta(id) } nombre={idUsuario}/>
                           </TableCell>
                         </TableRow>
                       );
@@ -222,7 +222,7 @@ export default function VentaList() {
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterId} />
+                        <SearchNotFound searchQuery={filterName} />
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -270,7 +270,7 @@ function applySortFilter(array, comparator, query) {
   });
   if (query) {
     return array.filter(
-      (_venta) => _venta.idVenta.indexOf(query.toLowerCase()) !== -1
+      (_venta) => _venta.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis.map((el) => el[0]);

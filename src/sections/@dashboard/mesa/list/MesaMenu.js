@@ -17,7 +17,7 @@ MesaMenu.propTypes = {
     nombre: PropTypes.string,
 };
 
-export default function MesaMenu({ onDelete, mesa }) {
+export default function MesaMenu({ onDelete, nombre }) {
     const [open, setOpen] = useState(null);
   
     const handleOpen = (event) => {
@@ -33,7 +33,7 @@ export default function MesaMenu({ onDelete, mesa }) {
       width: 20,
       height: 20,
     };
-
+    console.log("nombre", nombre);
     return (
       <>
         <IconButton onClick={handleOpen}>
@@ -55,19 +55,12 @@ export default function MesaMenu({ onDelete, mesa }) {
         >
           <MenuItem onClick={onDelete} sx={{ color: 'error.main' }}>
             <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
-            Eliminar
+            Delete
           </MenuItem>
   
-          <MenuItem component={RouterLink} 
-            to={
-              `${PATH_DASHBOARD.mesa.root}/${paramCase(mesa.nombre)}/edit`
-              }
-            state={{
-              isEdit: true, 
-              currentMesa: mesa
-            }}>
+          <MenuItem component={RouterLink} to={`${PATH_DASHBOARD.mesa.root}/${paramCase(nombre)}/edit`}>
             <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
-            Editar
+            Edit
           </MenuItem>
         </MenuPopover>
       </>
