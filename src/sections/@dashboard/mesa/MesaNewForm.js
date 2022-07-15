@@ -15,6 +15,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
 
+import {ingresarMesa, actualizarMesa} from '../../../services/mesas';
 // ----------------------------------------------------------------------
 
 MesaNewForm.propTypes = {
@@ -72,12 +73,25 @@ export default function MesaNewForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentMesa]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (values) => {
+    const token = window.localStorage.getItem('accessToken');
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
-      navigate(PATH_DASHBOARD.mesa.list);
+      const respuesta = !isEdit ? ingresarMesa(values, token) 
+        : actualizarMesa(values,token, currentMesa.idMesa);
+      respuesta.then((res)=>{
+        if(res.ok){
+          reset();
+          enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
+          navigate(PATH_DASHBOARD.mesa.list, {mesa: {respuesta}});
+        }else{
+          return res.json();
+        }
+      })
+      .then(resp => {
+        const property = Object.getOwnPropertyNames(resp);
+        enqueueSnackbar(resp[property[0]], { variant: 'error' });
+      });
     } catch (error) {
       console.error(error);
     }
