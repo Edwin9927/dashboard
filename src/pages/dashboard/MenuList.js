@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import getMenu from '../../services/getMenu';
+import { useSnackbar } from "notistack";
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -30,6 +31,7 @@ import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { MenuListHead, MenuListToolbar, MenuMoreMenu } from '../../sections/@dashboard/menu/list';
+import {eliminarMenu} from "../../services/menu";
 
 const TABLE_HEAD = [
     { id: 'id', label: 'ID Menu', alignRight: false },
@@ -42,6 +44,7 @@ export default function MenuList() {
     const theme = useTheme();
     const { themeStretch } = useSettings();
     const [MenuList, setMenuList] = useState([]);
+    const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
         getMenu()
             .then(res => setMenuList(res));
@@ -94,7 +97,17 @@ export default function MenuList() {
     };
 
     const handleDeleteMenu = (menuId) => {
-        const deleteMenu = MenuList.filter((menu) => menu !== menuId);
+        const token = window.localStorage.getItem('accessToken');
+        const resp = eliminarMenu(token, menuId);
+        resp.then(re => {
+            if(re.ok){
+                enqueueSnackbar("Alimento eliminado con éxito!");
+            }else{
+                enqueueSnackbar("Error al eliminar alimento!");
+            }
+        });
+        const deleteMenu = MenuList.filter((menu) => menu.id !== menuId);
+        console.log(deleteMenu);
         setSelected([]);
         setMenuList(deleteMenu);
     };

@@ -15,6 +15,8 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
 
+import { ingresarMenu, actualizarMenu } from "../../../services/menu";
+
 // ----------------------------------------------------------------------
 
 MenuNewForm.propTypes = {
@@ -70,13 +72,29 @@ export default function MenuNewForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentMenu]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (values) => {
+    const token = window.localStorage.getItem('accessToken');
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log(Promise.resolve());
-      reset();
-      enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
-      navigate(PATH_DASHBOARD.user.list);
+
+      const respuesta = !isEdit ? ingresarMenu(values, token)
+          : actualizarMenu(values,token, currentMenu.id);
+
+      respuesta.then((res) => {
+        if(res.ok){
+          enqueueSnackbar(!isEdit ? "Menu creado satisfactoriamente!" : "Actualización exitosa!");
+          reset();
+          navigate(PATH_DASHBOARD.menu.list);
+        }
+        else{
+          enqueueSnackbar(!isEdit ? "Error al crear un menu!" : "Error al actualizar un elemento!");
+        }
+        return res.json()
+      })
+          .then(resp => {
+            console.log(resp);
+          });
+
     } catch (error) {
       console.error(error);
     }

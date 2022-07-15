@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import getPedido from "../../services/getPedido";
+import { getPedido } from "../../services/getPedido";
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {

@@ -15,9 +15,10 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
 import React from 'react';
-import getPedido from "../../../services/getPedido";
-import getUsuarios from "../../../services/getUsuarios";
+
 import {ingresarVenta, actualizarVenta} from '../../../services/ventas'
+import {getPedido} from "../../../services/getPedido";
+import { getUsuario } from "../../../services/getUsuarios";
 
 
 // ----------------------------------------------------------------------
@@ -75,7 +76,7 @@ VentaNewForm.propTypes = {
     
       useEffect(() => {
         getPedido().then(res => setPedido(res));
-        getUsuarios().then(res => setUsuarios(res));
+        getUsuario().then(res => setUsuarios(res));
         if (isEdit && currentVenta) {
           reset(defaultValues);
         }

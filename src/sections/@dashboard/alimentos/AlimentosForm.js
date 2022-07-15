@@ -28,7 +28,7 @@ import {
   RHFTextField,
   RHFUploadAvatar,
 } from "../../../components/hook-form";
-import getMenus from "../../../services/menu";
+import { getMenus } from "../../../services/menu";
 import React from 'react';
 import {ingresarAlimento, actualizarAlimento} from '../../../services/alimentos'
 

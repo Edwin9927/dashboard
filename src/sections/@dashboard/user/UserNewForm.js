@@ -14,6 +14,7 @@ import { Box, Card, Grid, Stack } from '@mui/material';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
+import {ingresarUsuario, actualizarUsuario} from '../../../services/getUsuarios'
 
 // ----------------------------------------------------------------------
 
@@ -73,11 +74,27 @@ export default function UserNewForm({ isEdit, currentUser }) {
   }, [isEdit, currentUser]);
 
   const onSubmit = async () => {
+    const token = window.localStorage.getItem('accessToken');
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      enqueueSnackbar(!isEdit ? 'Creado con éxito!' : 'Actualizado con éxito!');
-      navigate(PATH_DASHBOARD.user.list);
+      const respuesta = !isEdit ? ingresarUsuario(values, token)
+          : actualizarUsuario(values,token, currentUser.id);
+
+      respuesta.then((res) => {
+        if(res.ok){
+          enqueueSnackbar(!isEdit ? "Usuario creado satisfactoriamente!" : "Actualización exitosa!");
+          reset();
+          navigate(PATH_DASHBOARD.user.list);
+        }
+        else{
+          enqueueSnackbar(!isEdit ? "Error al crear un usuario!" : "Error al actualizar un elemento!");
+        }
+        return res.json()
+      })
+          .then(resp => {
+            console.log(resp);
+          });
+
     } catch (error) {
       console.error(error);
     }
