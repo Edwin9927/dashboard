@@ -83,8 +83,7 @@ export default function Router() {
           children:[
             {element: <Navigate to="/dashboard/menu/list" replace />, index: true},
             {path: 'list', element: <MenuList />},
-            {path: 'new', element: <MenuCreate />},
-            {path: ':name/edit', element: <MenuCreate />}
+            {path: 'new', element: <MenuCreate />}
           ],
         },
         {
