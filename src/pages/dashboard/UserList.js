@@ -96,11 +96,11 @@ export default function UserList() {
     setSelected([]);
   };
 
-  const handleClick = (nombre) => {
-    const selectedIndex = selected.indexOf(nombre);
+  const handleClick = (name) => {
+    const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, nombre);
+      newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -207,7 +207,7 @@ export default function UserList() {
 
 
                         <TableCell align="right">
-                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} user={row} />
+                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={nombre} />
                         </TableCell>
                       </TableRow>
                     );
